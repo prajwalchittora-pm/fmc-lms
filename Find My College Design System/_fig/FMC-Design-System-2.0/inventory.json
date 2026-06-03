@@ -1,0 +1,288 @@
+{
+  "source": {
+    "filename": "FMC Design System 2.0.fig",
+    "nodeCount": 1479,
+    "pages": [
+      {
+        "id": "54:1600",
+        "name": "Thumbanil",
+        "selected": true
+      },
+      {
+        "id": "0:1",
+        "name": "Components",
+        "selected": true
+      },
+      {
+        "id": "221:96",
+        "name": "new components",
+        "selected": true
+      },
+      {
+        "id": "215:2",
+        "name": "Style Guide",
+        "selected": true
+      }
+    ],
+    "userSelectedFrames": []
+  },
+  "components": [
+    {
+      "name": "CTAAnimation",
+      "figmaId": "52:567",
+      "variantProps": [
+        "state"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "CTADesktop",
+      "figmaId": "54:606",
+      "variantProps": [
+        "type",
+        "size",
+        "icon"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "CTAMobile",
+      "figmaId": "54:1527",
+      "variantProps": [
+        "type",
+        "size",
+        "icon"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "DesktopInputField",
+      "figmaId": "127:587",
+      "variantProps": [
+        "state"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "DesktopDropdown",
+      "figmaId": "127:601",
+      "variantProps": [
+        "dropdown"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "MobileInputField",
+      "figmaId": "127:671",
+      "variantProps": [
+        "state"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "MobileDropdown",
+      "figmaId": "134:647",
+      "variantProps": [
+        "dropdown"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "Pill",
+      "figmaId": "173:22",
+      "variantProps": [
+        "state"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "DesktopTag",
+      "figmaId": "210:21",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "Marquee",
+      "figmaId": "221:122",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "SegmentedButtons",
+      "figmaId": "223:191",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "Toggle2",
+      "figmaId": "223:216",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "Progress",
+      "figmaId": "223:231",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "QuickFilter",
+      "figmaId": "223:366",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "CheckBox",
+      "figmaId": "223:375",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "SideBar",
+      "figmaId": "223:404",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "SearchBar",
+      "figmaId": "223:438",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "Nav",
+      "figmaId": "223:530",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    },
+    {
+      "name": "Table",
+      "figmaId": "223:618",
+      "variantProps": [],
+      "valueProps": []
+    },
+    {
+      "name": "RadioButton",
+      "figmaId": "223:619",
+      "variantProps": [
+        "property1"
+      ],
+      "valueProps": []
+    }
+  ],
+  "tokens": {
+    "count": 179,
+    "modes": [
+      "Mode 1",
+      "Mode 1",
+      "Light Mode",
+      "Mode 1"
+    ]
+  },
+  "styles": {
+    "text": 0,
+    "effect": 0
+  },
+  "warnings": [
+    {
+      "component": "CTAAnimation",
+      "nodeId": "52:567",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "CTADesktop",
+      "nodeId": "54:606",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "CTAMobile",
+      "nodeId": "54:1527",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "DesktopInputField",
+      "nodeId": "127:587",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "DesktopDropdown",
+      "nodeId": "127:601",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "MobileInputField",
+      "nodeId": "127:671",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "MobileDropdown",
+      "nodeId": "134:647",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "Pill",
+      "nodeId": "173:22",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "Toggle2",
+      "nodeId": "223:216",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "QuickFilter",
+      "nodeId": "223:366",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "CheckBox",
+      "nodeId": "223:375",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "SideBar",
+      "nodeId": "223:404",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "SearchBar",
+      "nodeId": "223:434",
+      "kind": "external-instance",
+      "detail": "instance of \"zoom/search\" stubbed (not in file/selection)"
+    },
+    {
+      "component": "Nav",
+      "nodeId": "223:530",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    },
+    {
+      "component": "RadioButton",
+      "nodeId": "223:619",
+      "kind": "variant-root-only",
+      "detail": "variant deltas capture root-level styles only; nested-child differences not diffed"
+    }
+  ]
+}

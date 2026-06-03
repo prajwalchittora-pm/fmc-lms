@@ -1,0 +1,63 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,400,0..1,0&display=swap">
+<style>
+  body { margin:0; padding:22px 24px; background:var(--bg-white); display:grid; grid-template-columns:repeat(5,1fr); gap:14px; align-items:flex-start; }
+  .field { display:flex; flex-direction:column; gap:6px; min-width:0; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
+  .lbl { font-size:13px; font-weight:500; color:var(--text-primary); }
+  .dd { height:44px; border-radius:12px; background:#fff; border:1px solid var(--border-subtle); padding:0 10px 0 14px; display:flex; align-items:center; justify-content:space-between; font-size:13px; color:var(--text-tertiary); }
+  .dd.open    { border-color:var(--neutral-800); }
+  .dd.filled  { color:var(--text-primary); font-weight:700; }
+  .dd .chev {
+    font-family:'Material Symbols Rounded';
+    font-size:20px; line-height:1; color:var(--neutral-800);
+    font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 20;
+    transition: transform .15s;
+  }
+  .dd.open .chev { transform:rotate(180deg); }
+  .menu { background:#fff; border-radius:12px; border:1px solid var(--border-subtle); padding:6px; display:flex; flex-direction:column; gap:2px; margin-top:6px; }
+  .opt { padding:9px 10px; border-radius:6px; font-size:13px; color:var(--text-primary); }
+  .opt.sel { background:var(--bg-pastel-beige-3); color:var(--orange-700); font-weight:600; }
+  .help.err { font-size:12px; color:var(--text-error); font-weight:500; }
+</style></head>
+<body>
+  <div class="field">
+    <div class="state">Closed</div>
+    <div class="lbl">Label</div>
+    <div class="dd">Select option <span class="chev">expand_more</span></div>
+  </div>
+  <div class="field">
+    <div class="state">Open</div>
+    <div class="lbl">Current Status</div>
+    <div class="dd open">Select option <span class="chev">expand_more</span></div>
+    <div class="menu">
+      <div class="opt">Option 1</div>
+      <div class="opt">Option 2</div>
+      <div class="opt">Option 3</div>
+      <div class="opt">Option 4</div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="state">Open · selected</div>
+    <div class="lbl">Current Status</div>
+    <div class="dd open">Select option <span class="chev">expand_more</span></div>
+    <div class="menu">
+      <div class="opt">Option 1</div>
+      <div class="opt sel">Option 2</div>
+      <div class="opt">Option 3</div>
+      <div class="opt">Option 4</div>
+    </div>
+  </div>
+  <div class="field">
+    <div class="state">Filled</div>
+    <div class="lbl">Current Status</div>
+    <div class="dd filled">Option 2 <span class="chev">expand_more</span></div>
+  </div>
+  <div class="field">
+    <div class="state">Error</div>
+    <div class="lbl">Current Status</div>
+    <div class="dd">Select option <span class="chev">expand_more</span></div>
+    <div class="help err">Error Text</div>
+  </div>
+</body></html>

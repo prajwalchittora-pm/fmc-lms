@@ -1,0 +1,46 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:22px 28px; background:var(--bg-white); }
+  .head { font-size:12px; color:var(--text-tertiary); margin-bottom:14px; }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .group { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-tertiary); margin:14px 0 8px; }
+  .grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .sw { border-radius:10px; padding:10px 12px; min-height:60px;
+        display:flex; flex-direction:column; justify-content:space-between; font-size:11px; }
+  .sw .name { font-weight:700; font-size:12px; }
+  .sw .val  { opacity:.8; font-feature-settings:"tnum"; }
+  .sw.outline { box-shadow:inset 0 0 0 1px var(--neutral-200); }
+</style></head>
+<body>
+  <div class="head"><b>Background</b></div>
+
+  <div class="group">Surfaces</div>
+  <div class="grid">
+    <div class="sw outline" style="background:var(--bg-white); color:var(--text-primary);">       <div class="name">White</div><div class="val">--bg-white</div></div>
+    <div class="sw"         style="background:var(--bg-section); color:var(--text-primary);">     <div class="name">Section</div><div class="val">--bg-section · #F8F5F1</div></div>
+    <div class="sw"         style="background:var(--bg-cta); color:#fff;">                       <div class="name">CTA</div><div class="val">--bg-cta · blue-700</div></div>
+  </div>
+
+  <div class="group">Dark surface</div>
+  <div class="grid" style="grid-template-columns:repeat(1,1fr);">
+    <div class="sw" style="background:linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%); color:#fff; min-height:96px;">
+      <div class="name">Dark surface gradient</div>
+      <div class="val" style="opacity:.85;">linear-gradient(135deg, #030B22 → #06102E → #213594)</div>
+    </div>
+  </div>
+
+  <div class="group">Pastel category</div>
+  <div class="grid">
+    <div class="sw" style="background:var(--bg-pastel-blue);    color:var(--label-blue);">  <div class="name">Blue</div><div class="val">--bg-pastel-blue</div></div>
+    <div class="sw" style="background:var(--bg-pastel-cyan);    color:var(--label-cyan);">  <div class="name">Cyan</div><div class="val">--bg-pastel-cyan</div></div>
+    <div class="sw" style="background:var(--bg-pastel-green);   color:var(--label-green);"> <div class="name">Green</div><div class="val">--bg-pastel-green</div></div>
+    <div class="sw" style="background:var(--bg-pastel-yellow);  color:var(--label-brown);"> <div class="name">Yellow</div><div class="val">--bg-pastel-yellow</div></div>
+    <div class="sw" style="background:var(--bg-pastel-red);     color:var(--label-red);">   <div class="name">Red</div><div class="val">--bg-pastel-red</div></div>
+    <div class="sw" style="background:var(--bg-pastel-pink);    color:var(--label-pink);">  <div class="name">Pink</div><div class="val">--bg-pastel-pink</div></div>
+    <div class="sw" style="background:var(--bg-pastel-purple);  color:var(--label-purple);"><div class="name">Purple</div><div class="val">--bg-pastel-purple</div></div>
+    <div class="sw" style="background:var(--bg-pastel-beige-1); color:var(--orange-700);">  <div class="name">Beige 1</div><div class="val">--bg-pastel-beige-1</div></div>
+    <div class="sw" style="background:var(--bg-pastel-beige-2); color:var(--orange-700);">  <div class="name">Beige 2</div><div class="val">--bg-pastel-beige-2</div></div>
+    <div class="sw" style="background:var(--bg-pastel-beige-3); color:var(--orange-800);">  <div class="name">Beige 3</div><div class="val">--bg-pastel-beige-3</div></div>
+  </div>
+</body></html>

@@ -1,0 +1,56 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:22px 28px; background:var(--bg-white); }
+  .head { font-size:12px; color:var(--text-tertiary); margin-bottom:14px; }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .group { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-tertiary); margin:12px 0 8px; }
+  .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .item { display:flex; flex-direction:column; gap:6px; }
+  .box  { height:48px; border-radius:8px; background:#fff; }
+  .meta { font-size:11px; font-feature-settings:"tnum"; line-height:1.4; }
+  .meta b { color:var(--text-primary); font-weight:700; font-size:12px; display:block; margin-bottom:2px; }
+  .meta .var { color:var(--text-tertiary); display:block; }
+  .meta .use { color:var(--text-secondary); display:block; margin-top:2px; }
+</style></head>
+<body>
+  <div class="head"><b>Borders</b></div>
+
+  <div class="group">Neutral</div>
+  <div class="grid">
+    <div class="item"><div class="box" style="border:1px solid var(--border-subtle)"></div>
+      <div class="meta"><b>Subtle</b><span class="var">--border-subtle</span><span class="use">Default input + card stroke; reads softly on white &amp; beige</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-grey)"></div>
+      <div class="meta"><b>Grey</b><span class="var">--border-grey · neutral-500</span><span class="use">Dividers, hairlines, table rules</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-black)"></div>
+      <div class="meta"><b>Black</b><span class="var">--border-black · neutral-800</span><span class="use">Focused input / dropdown border</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-white); background:var(--bg-section);"></div>
+      <div class="meta"><b>White</b><span class="var">--border-white</span><span class="use">Strokes on dark surfaces and image overlays</span></div></div>
+  </div>
+
+  <div class="group">Status</div>
+  <div class="grid">
+    <div class="item"><div class="box" style="border:1px solid var(--border-error)"></div>
+      <div class="meta"><b>Error</b><span class="var">--border-error · red-200</span><span class="use">Invalid input / form-error state</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-success)"></div>
+      <div class="meta"><b>Success</b><span class="var">--border-success · green-200</span><span class="use">Confirmed input / success message</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-orange)"></div>
+      <div class="meta"><b>Selected</b><span class="var">--border-orange · orange-300</span><span class="use">Selected pill / filter chip outline</span></div></div>
+  </div>
+
+  <div class="group">Category</div>
+  <div class="grid">
+    <div class="item"><div class="box" style="border:1px solid var(--border-blue)"></div>
+      <div class="meta"><b>Blue</b><span class="var">--border-blue</span><span class="use">Outlines on blue pastel category cards / tags</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-cyan)"></div>
+      <div class="meta"><b>Cyan</b><span class="var">--border-cyan</span><span class="use">Medical / health category outlines</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-green)"></div>
+      <div class="meta"><b>Green</b><span class="var">--border-green</span><span class="use">Open-seats / success category outlines</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-yellow)"></div>
+      <div class="meta"><b>Yellow</b><span class="var">--border-yellow</span><span class="use">Commerce / warning category outlines</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-pink)"></div>
+      <div class="meta"><b>Pink</b><span class="var">--border-pink</span><span class="use">Arts &amp; humanities category outlines</span></div></div>
+    <div class="item"><div class="box" style="border:1px solid var(--border-purple)"></div>
+      <div class="meta"><b>Purple</b><span class="var">--border-purple</span><span class="use">Law / premium category outlines</span></div></div>
+  </div>
+</body></html>

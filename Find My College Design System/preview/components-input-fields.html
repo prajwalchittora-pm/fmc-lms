@@ -1,0 +1,38 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:22px 24px; background:var(--bg-white); display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .field { display:flex; flex-direction:column; gap:8px; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.05em; font-weight:700; }
+  .lbl { font-size:14px; font-weight:700; color:var(--text-primary); }
+  .input { height:44px; border-radius:12px; background:#fff; border:1px solid var(--border-subtle); padding:0 16px; display:flex; align-items:center; gap:2px; font-size:14px; font-weight:500; color:var(--text-tertiary); }
+  .input.focused { border-color:var(--neutral-800); }
+  .input.filled  { color:var(--text-primary); font-weight:700; }
+  .input.error   { /* same subtle border per .fig */ }
+  .caret { width:1px; height:18px; background:var(--neutral-800); animation:blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity:0; } }
+  .help.err { font-size:12px; color:var(--text-error); font-weight:500; }
+</style></head>
+<body>
+  <div class="field">
+    <div class="state">Default</div>
+    <div class="lbl">Label</div>
+    <div class="input">Placeholder</div>
+  </div>
+  <div class="field">
+    <div class="state">Focused</div>
+    <div class="lbl">Label</div>
+    <div class="input focused"><span class="caret"></span>Placeholder</div>
+  </div>
+  <div class="field">
+    <div class="state">Filled</div>
+    <div class="lbl">Label</div>
+    <div class="input filled">Placeholder</div>
+  </div>
+  <div class="field">
+    <div class="state">Error</div>
+    <div class="lbl">Label</div>
+    <div class="input error">Placeholder</div>
+    <div class="help err">Error Text</div>
+  </div>
+</body></html>

@@ -1,0 +1,75 @@
+<!-- @dsCard group="Components" -->
+<!-- figma: 210:21 Desktop Tag -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:26px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:18px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+
+  /* Desktop Tag — notch silhouette (concave top corners + soft bottom rounding).
+     Fill mapped to the pastel background system, text mapped to matching label token.
+     Inter 14/700 · filled rounded bolt. */
+  .desktop-tag {
+    position:relative; display:inline-flex; align-items:center; gap:4px;
+    height:38px; padding:0 24px;
+    font-family:'Inter', sans-serif; font-size:14px; font-weight:700;
+    line-height:1.2;
+    isolation:isolate;
+  }
+  .desktop-tag::before {
+    content:""; position:absolute; inset:0; z-index:-1;
+    background-image: var(--tag-shape);
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+  }
+  .desktop-tag .ico {
+    width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center;
+  }
+  .desktop-tag .ico svg { width:14px; height:14px; }
+
+  /* Color variants — each maps a pastel background to its matching label text */
+  .desktop-tag.green  { color:var(--label-green);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23D6FFE4'/></svg>"); }
+  .desktop-tag.blue   { color:var(--label-blue);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23DBE9FF'/></svg>"); }
+  .desktop-tag.cyan   { color:var(--label-cyan);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23E0F8FF'/></svg>"); }
+  .desktop-tag.yellow { color:var(--label-brown);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23FFF0CC'/></svg>"); }
+  .desktop-tag.pink   { color:var(--label-pink);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23FFEBF6'/></svg>"); }
+  .desktop-tag.purple { color:var(--label-purple);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23F6ECFF'/></svg>"); }
+  .desktop-tag.red    { color:var(--label-red);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23FFEBEB'/></svg>"); }
+  .desktop-tag.beige  { color:var(--orange-700);
+    --tag-shape: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 360 38' preserveAspectRatio='none'><path d='M16 0 L344 0 Q344 12 360 12 L360 32 Q360 38 354 38 L6 38 Q0 38 0 32 L0 12 Q16 12 16 0 Z' fill='%23FBECD8'/></svg>"); }
+
+  .desktop-tag .ico { color: currentColor; }
+
+  .row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+  .label { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+</style></head>
+<body>
+  <div class="head"><b>Desktop Tag</b> · 38h · notch silhouette · fill = <code style="font-size:11px;">--bg-pastel-*</code>, text = matching <code style="font-size:11px;">--label-*</code> · Inter 14/700 · filled rounded bolt</div>
+
+  <div class="row">
+    <div class="desktop-tag green">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span>
+      <span>Label</span>
+    </div>
+  </div>
+
+  <div class="label">Pastel color variants</div>
+  <div class="row">
+    <div class="desktop-tag blue">   <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+    <div class="desktop-tag cyan">   <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+    <div class="desktop-tag yellow"> <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+    <div class="desktop-tag beige">  <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+  </div>
+  <div class="row">
+    <div class="desktop-tag pink">   <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+    <div class="desktop-tag purple"> <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+    <div class="desktop-tag red">    <span class="ico"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.04 9h-3.83L13 2.5c.21-.51-.13-1.07-.68-1.07h-.18c-.31 0-.6.18-.74.46L6.32 11.71c-.31.61.13 1.34.82 1.34h3.83L9.18 21.58c-.21.51.13 1.07.68 1.07h.18c.31 0 .6-.18.74-.46l5.08-9.82c.31-.61-.13-1.34-.82-1.34z"/></svg></span><span>Label</span></div>
+  </div>
+</body></html>

@@ -1,0 +1,57 @@
+<!-- @dsCard group="Colors" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:22px 28px; background:var(--bg-white); }
+  .head { font-size:12px; color:var(--text-tertiary); margin-bottom:14px; }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .group { font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--text-tertiary); margin:14px 0 4px; }
+  .group:first-of-type { margin-top:0; }
+  .row {
+    display:grid; grid-template-columns:1.2fr 1fr 1fr;
+    align-items:center; gap:16px;
+    padding:9px 0;
+    border-top:1px solid var(--border-subtle);
+  }
+  .name { font-weight:700; font-size:15px; }
+  .tok  { font-size:11px; color:var(--text-tertiary); font-feature-settings:"tnum"; }
+  .tok b { color:var(--text-secondary); font-weight:700; }
+  .prim { font-size:11px; color:var(--text-tertiary); font-feature-settings:"tnum"; display:inline-flex; align-items:center; gap:6px; }
+  .prim .swatch { width:12px; height:12px; border-radius:3px; box-shadow:inset 0 0 0 1px rgba(15,15,15,.06); }
+  .prim b { color:var(--text-secondary); font-weight:700; }
+
+  .grid2 { display:grid; grid-template-columns:repeat(2,1fr); gap:8px 18px; }
+  .row-2 {
+    display:grid; grid-template-columns:1fr auto;
+    align-items:center; gap:12px; padding:7px 0; border-top:1px solid var(--border-subtle);
+  }
+  .row-2 .name { font-size:13px; font-weight:600; }
+  .row-2 .var  { font-size:11px; color:var(--text-tertiary); font-feature-settings:"tnum"; }
+</style></head>
+<body>
+  <div class="head"><b>Text</b></div>
+
+  <div class="group">Text · Semantic tokens</div>
+  <div class="row"><div class="name" style="color:var(--text-headings)">Heading</div><div class="tok"><b>--text-headings</b></div><div class="prim"><span class="swatch" style="background:var(--blue-700)"></span><b>--blue-700</b> · #072FB5</div></div>
+  <div class="row"><div class="name" style="color:var(--text-heading-hilite)">Heading highlight</div><div class="tok"><b>--text-heading-hilite</b></div><div class="prim"><span class="swatch" style="background:var(--orange-600)"></span><b>--orange-600</b> · #8F3B00</div></div>
+  <div class="row"><div class="name" style="color:var(--text-primary)">Text Primary</div><div class="tok"><b>--text-primary</b></div><div class="prim"><span class="swatch" style="background:var(--neutral-800)"></span><b>--neutral-800</b> · #343434</div></div>
+  <div class="row"><div class="name" style="color:var(--text-secondary)">Secondary</div><div class="tok"><b>--text-secondary</b></div><div class="prim"><span class="swatch" style="background:var(--neutral-700)"></span><b>--neutral-700</b> · #4A4A4A</div></div>
+  <div class="row"><div class="name" style="color:var(--text-tertiary)">Tertiary</div><div class="tok"><b>--text-tertiary</b></div><div class="prim"><span class="swatch" style="background:var(--neutral-500)"></span><b>--neutral-500</b> · #747474</div></div>
+  <div class="row"><div class="name" style="color:var(--text-cta-light-bg)">CTA</div><div class="tok"><b>--text-cta-light-bg</b></div><div class="prim"><span class="swatch" style="background:var(--blue-700)"></span><b>--blue-700</b> · #072FB5</div></div>
+
+  <div class="group">Status</div>
+  <div class="grid2">
+    <div class="row-2"><div class="name" style="color:var(--text-error)">Error</div><div class="var">--text-error · <b style="color:var(--text-secondary)">red-500</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--text-success)">Success</div><div class="var">--text-success · <b style="color:var(--text-secondary)">green-600</b></div></div>
+  </div>
+
+  <div class="group">Label colors</div>
+  <div class="grid2">
+    <div class="row-2"><div class="name" style="color:var(--label-blue)">Blue</div><div class="var">--label-blue · <b style="color:var(--text-secondary)">blue-700</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-cyan)">Cyan</div><div class="var">--label-cyan · <b style="color:var(--text-secondary)">cyan-600</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-green)">Green</div><div class="var">--label-green · <b style="color:var(--text-secondary)">green-600</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-brown)">Brown</div><div class="var">--label-brown · <b style="color:var(--text-secondary)">yellow-500</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-red)">Red</div><div class="var">--label-red · <b style="color:var(--text-secondary)">red-800</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-pink)">Pink</div><div class="var">--label-pink · <b style="color:var(--text-secondary)">pink-800</b></div></div>
+    <div class="row-2"><div class="name" style="color:var(--label-purple)">Purple</div><div class="var">--label-purple · <b style="color:var(--text-secondary)">purple-800</b></div></div>
+  </div>
+</body></html>

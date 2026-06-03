@@ -1,0 +1,36 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:14px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .row { display:flex; flex-wrap:wrap; gap:8px; }
+  .tag-pill {
+    display:inline-flex; align-items:center;
+    height:28px; padding:0 14px;
+    border-radius:9999px;
+    font-family:'Inter', sans-serif; font-size:12px; font-weight:600;
+    line-height:1;
+  }
+  .tag-pill.blue   { background:var(--bg-pastel-blue);    color:var(--label-blue); }
+  .tag-pill.cyan   { background:var(--bg-pastel-cyan);    color:var(--label-cyan); }
+  .tag-pill.green  { background:var(--bg-pastel-green);   color:var(--label-green); }
+  .tag-pill.yellow { background:var(--bg-pastel-yellow);  color:var(--label-brown); }
+  .tag-pill.red    { background:var(--bg-pastel-red);     color:var(--label-red); }
+  .tag-pill.pink   { background:var(--bg-pastel-pink);    color:var(--label-pink); }
+  .tag-pill.purple { background:var(--bg-pastel-purple);  color:var(--label-purple); }
+  .tag-pill.beige  { background:var(--bg-pastel-beige-3); color:var(--orange-800); }
+</style></head>
+<body>
+  <div class="head"><b>Tag · Pill</b> · 28h · pill radius · pastel bg + matching label colour · Inter 12/600 · category, status &amp; stream chips.</div>
+  <div class="row">
+    <div class="tag-pill blue">Label</div>
+    <div class="tag-pill cyan">Label</div>
+    <div class="tag-pill green">Label</div>
+    <div class="tag-pill yellow">Label</div>
+    <div class="tag-pill red">Label</div>
+    <div class="tag-pill pink">Label</div>
+    <div class="tag-pill purple">Label</div>
+    <div class="tag-pill beige">Label</div>
+  </div>
+</body></html>

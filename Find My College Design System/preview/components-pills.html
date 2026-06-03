@@ -1,0 +1,33 @@
+<!-- @dsCard group="Components" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:18px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .grid { display:flex; gap:32px; align-items:flex-start; }
+  .cell { display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  /* Pill — height 44, radius 50 per Figma component */
+  .pill {
+    height:44px;
+    padding:0 24px;
+    border-radius:50px;
+    background:#fff;
+    border:1px solid var(--border-subtle);
+    color:var(--text-primary);
+    font-family:inherit; font-size:14px; font-weight:500;
+    display:inline-flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition: background .15s, border-color .15s;
+  }
+  .pill.hover    { background:var(--bg-section); border-color:var(--neutral-200); }
+  .pill.selected { background:var(--bg-pastel-beige-3); border-color:var(--border-orange); color:var(--orange-800); font-weight:600; }
+</style></head>
+<body>
+  <div class="head"><b>Pill</b> · 44px tall · pill radius · 14/500 label · Default + Selected per Figma. Width fits content (~85px min).</div>
+  <div class="grid">
+    <div class="cell"><div class="state">Default</div><div class="pill">Label</div></div>
+    <div class="cell"><div class="state">Default · hover</div><div class="pill hover">Label</div></div>
+    <div class="cell"><div class="state">Selected</div><div class="pill selected">Label</div></div>
+  </div>
+</body></html>

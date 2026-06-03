@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" -->
+<!-- figma: 223:619 RadioButton -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:24px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:14px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .row { display:flex; gap:36px; align-items:center; }
+  .cell { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  .radio { width:16px; height:16px; border-radius:9999px; border:1px solid var(--neutral-100); background:#fff; display:inline-flex; align-items:center; justify-content:center; }
+  .radio.selected { background:var(--orange-600); border-color:var(--orange-600); }
+  .radio.selected::after { content:""; width:6px; height:6px; border-radius:9999px; background:#fff; }
+  .with-label { display:inline-flex; align-items:center; gap:8px; font-size:14px; color:var(--text-primary); }
+</style></head>
+<body>
+  <div class="head"><b>Radio Button</b> · Figma <code style="font-size:11px;">223:619</code> · 16×16 · circle · orange-600 when selected</div>
+  <div class="row">
+    <div class="cell"><div class="state">Default</div><div class="radio"></div></div>
+    <div class="cell"><div class="state">Selected</div><div class="radio selected"></div></div>
+    <div class="cell"><div class="state">With label</div>
+      <div class="with-label"><span class="radio selected"></span>Engineering</div>
+    </div>
+  </div>
+</body></html>

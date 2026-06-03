@@ -1,0 +1,20 @@
+<!-- @dsCard group="Spacing" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:22px 28px; background:var(--bg-section); }
+  .head { font-size:12px; color:var(--text-tertiary); margin-bottom:16px; }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .item { display:flex; flex-direction:column; align-items:center; gap:10px; }
+  .card { width:96px; height:60px; background:var(--bg-white); border-radius:12px; }
+  .name { font-size:11px; color:var(--text-secondary); font-weight:600; text-align:center; line-height:1.4; font-feature-settings:"tnum"; }
+  .name span { display:block; color:var(--text-tertiary); font-weight:400; }
+</style></head>
+<body>
+  <div class="head"><b>Elevation</b> · 3 shadows from chip to overlay. All shadows are near-black, never blue-tinted.</div>
+  <div class="grid">
+    <div class="item"><div class="card" style="box-shadow:var(--shadow-sm)"></div><div class="name">sm<span>cards · chips</span></div></div>
+    <div class="item"><div class="card" style="box-shadow:var(--shadow-md)"></div><div class="name">md<span>tiles · hover</span></div></div>
+    <div class="item"><div class="card" style="box-shadow:var(--shadow-lg)"></div><div class="name">lg<span>modals · menus</span></div></div>
+  </div>
+</body></html>

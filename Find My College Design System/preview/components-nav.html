@@ -1,0 +1,40 @@
+<!-- @dsCard group="Components" -->
+<!-- figma: 223:530 Nav -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:26px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:14px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .row { display:flex; gap:36px; align-items:center; }
+  .cell { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  .nav-item {
+    display:inline-flex; flex-direction:column; align-items:center; gap:6px;
+    padding:0 8px 6px;
+    font-family:'Inter'; font-size:14px; font-weight:500;
+    color:var(--text-primary);
+    border-bottom:2px solid transparent;
+    cursor:pointer;
+  }
+  .nav-item.selected {
+    color:var(--blue-700); font-weight:700;
+    border-bottom-color:var(--blue-700);
+  }
+  .nav-strip { display:flex; gap:24px; border-bottom:1px solid var(--border-subtle); padding-top:4px; }
+</style></head>
+<body>
+  <div class="head"><b>Nav</b> · Figma <code style="font-size:11px;">223:530</code> · text + underline on active · blue-700 selected</div>
+  <div class="row">
+    <div class="cell"><div class="state">Default</div><div class="nav-item">Label</div></div>
+    <div class="cell"><div class="state">Selected</div><div class="nav-item selected">Label</div></div>
+  </div>
+  <div>
+    <div class="state" style="margin-bottom:8px;">In context</div>
+    <div class="nav-strip">
+      <div class="nav-item selected">Find Colleges</div>
+      <div class="nav-item">Courses</div>
+      <div class="nav-item">Counsellors</div>
+      <div class="nav-item">Stories</div>
+    </div>
+  </div>
+</body></html>

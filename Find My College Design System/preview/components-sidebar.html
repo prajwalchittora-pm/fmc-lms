@@ -1,0 +1,45 @@
+<!-- @dsCard group="Components" -->
+<!-- figma: 223:404 SideBar -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  body { margin:0; padding:26px 28px; background:var(--bg-white); display:flex; flex-direction:column; gap:14px; }
+  .head { font-size:12px; color:var(--text-tertiary); }
+  .head b { color:var(--text-secondary); font-weight:700; }
+  .row { display:flex; gap:24px; align-items:center; }
+  .cell { display:flex; flex-direction:column; gap:8px; align-items:flex-start; }
+  .state { font-size:10px; color:var(--text-tertiary); text-transform:uppercase; letter-spacing:.06em; font-weight:700; }
+  .sidebar-item {
+    display:inline-flex; align-items:center; gap:12px;
+    min-width:220px; height:44px; padding:0 14px;
+    border-radius:10px;
+    background:#fff; border:1px solid var(--border-subtle);
+    font-family:'Inter'; font-size:14px; font-weight:500;
+    color:var(--text-primary);
+    cursor:pointer;
+  }
+  .sidebar-item.selected {
+    background:var(--bg-pastel-beige-3);
+    border-color:transparent;
+    color:var(--orange-800);
+    font-weight:700;
+  }
+  .icon { width:20px; height:20px; flex-shrink:0; }
+  .icon svg { width:100%; height:100%; }
+</style></head>
+<body>
+  <div class="head"><b>SideBar</b> · Figma <code style="font-size:11px;">223:404</code> · 44h row · icon + label · beige-3 fill when active</div>
+  <div class="row">
+    <div class="cell"><div class="state">Default</div>
+      <div class="sidebar-item">
+        <span class="icon" style="color:var(--text-primary);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="3.5"/><path d="M5 20a7 7 0 0 1 14 0" stroke-linecap="round"/></svg></span>
+        Label 1
+      </div>
+    </div>
+    <div class="cell"><div class="state">Selected</div>
+      <div class="sidebar-item selected">
+        <span class="icon" style="color:var(--orange-700);"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="9" r="4"/><path d="M5 20a7 7 0 0 1 14 0z"/></svg></span>
+        Label 1
+      </div>
+    </div>
+  </div>
+</body></html>

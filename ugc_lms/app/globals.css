@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/Inter-VariableFont_opsz_wght.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/BricolageGrotesque-VariableFont_opsz_wdth_wght.ttf') format('truetype-variations');
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* FMC Brand */
+  --fmc-orange: #FF6A00;
+  --fmc-red: #CF0003;
+  --fmc-blue: #044BDD;
+
+  /* Neutral scale */
+  --neutral-50:  #FFFFFF;
+  --neutral-100: #D7D7D7;
+  --neutral-200: #BABABA;
+  --neutral-300: #A1A1A1;
+  --neutral-400: #848484;
+  --neutral-500: #747474;
+  --neutral-600: #5E5E5E;
+  --neutral-700: #4A4A4A;
+  --neutral-800: #343434;
+  --neutral-900: #0F0F0F;
+
+  /* Blue scale */
+  --blue-50:  #DBE9FF;
+  --blue-100: #B8D4FF;
+  --blue-200: #76ACFF;
+  --blue-300: #438EFF;
+  --blue-400: #2976F2;
+  --blue-500: #1461FA;
+  --blue-600: #1346F6;
+  --blue-700: #072FB5;
+  --blue-800: #012B74;
+  --blue-900: #001842;
+
+  /* Orange scale */
+  --orange-50:  #FFFCF8;
+  --orange-100: #FFF8ED;
+  --orange-200: #FBECD8;
+  --orange-300: #EFBE95;
+  --orange-400: #D65900;
+  --orange-500: #B84D00;
+  --orange-600: #8F3B00;
+  --orange-700: #702F00;
+
+  /* Green scale */
+  --green-50:  #D6FFE4;
+  --green-100: #85FFAD;
+  --green-500: #00A337;
+  --green-600: #007528;
+  --green-700: #00571D;
+
+  /* Red */
+  --red-500: #F80202;
+  --red-600: #DE0202;
+
+  /* Semantic backgrounds */
+  --bg-white: #FFFFFF;
+  --bg-section: #F8F5F1;
+  --bg-cta: var(--blue-700);
+  --bg-dark-surface: linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%);
+
+  /* Pastel backgrounds */
+  --bg-pastel-beige-1: #FFFCF8;
+  --bg-pastel-beige-2: #FFF8ED;
+  --bg-pastel-beige-3: #FBECD8;
+  --bg-pastel-blue: #DBE9FF;
+  --bg-pastel-green: #D6FFE4;
+
+  /* Semantic text */
+  --text-primary: #343434;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #747474;
+  --text-headings: #0F0F0F;
+  --text-heading-hilite: #8F3B00;
+  --text-cta-light-bg: #072FB5;
+  --text-cta-dark-bg: #FFFFFF;
+  --text-on-dark-1: #FFFFFF;
+  --text-error: #F80202;
+  --text-success: #007528;
+
+  /* Borders */
+  --border-subtle: rgba(215,215,215,0.5);
+  --border-blue: #438EFF;
+  --border-orange: #EFBE95;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15,15,15,0.04);
+  --shadow-sm: 0 2px 6px rgba(15,15,15,0.06);
+  --shadow-md: 0 6px 16px rgba(15,15,15,0.08);
+  --shadow-lg: 0 16px 40px rgba(15,15,15,0.10);
+  --shadow-focus-blue: 0 0 0 4px rgba(20,97,250,0.18);
+
+  /* Spacing (4pt) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Bricolage Grotesque', 'Inter', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', monospace;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-black: 800;
+
+  --fs-display: 64px;
+  --fs-h1: 48px;
+  --fs-h2: 36px;
+  --fs-h3: 28px;
+  --fs-h4: 22px;
+  --fs-h5: 18px;
+  --fs-body: 16px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+
+  --lh-tight: 1.1;
+  --lh-snug: 1.25;
+  --lh-normal: 1.4;
+  --lh-relaxed: 1.5;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.02em;
+
+  /* LMS semantic aliases */
+  --accent: var(--blue-700);
+  --accent-soft: rgba(7,47,181,0.07);
+  --accent-border: rgba(7,47,181,0.16);
+  --success: var(--green-600);
+  --success-soft: rgba(0,117,40,0.08);
+  --text: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --text-faint: var(--text-tertiary);
+  --text-xfaint: var(--neutral-300);
+  --sep: var(--border-subtle);
+  --cta-bg: var(--blue-700);
+  --cta-text: #FFFFFF;
+  --sunken: #F8F5F1;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  background: #FBF4EA;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Headings use display font */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--text-headings);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  margin: 0;
+}
+
+.highlight { color: var(--text-heading-hilite); }
+
+/* Primary CTA button — 12px radius, blue fill */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: var(--blue-700);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-primary:hover { background: var(--blue-800); }
+
+/* Secondary CTA */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 18px;
+  background: #fff;
+  color: var(--blue-700);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid var(--blue-700);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-secondary:hover { background: var(--blue-50); }
+
+/* Ghost */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn-ghost:hover { background: var(--bg-section); }
+
+/* Pills */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--bg-section);
+  color: var(--text-tertiary);
+  border: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+.pill-accent {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-color: var(--accent-border);
+}
+
+/* Progress track */
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--neutral-100);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--orange-600);
+  border-radius: var(--radius-pill);
+  transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.progress-fill-success { background: var(--green-600); }
+.progress-fill-accent { background: var(--blue-700); }
+
+/* Section labels */
+.label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+}
+
+/* Scroll row */
+.scroll-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+.scroll-row::-webkit-scrollbar { display: none; }
+
+/* Enter animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.enter { opacity: 0; animation: fadeUp 0.4s ease forwards; }
+.enter-1 { animation-delay: 0.04s; }
+.enter-2 { animation-delay: 0.10s; }
+.enter-3 { animation-delay: 0.18s; }
+.enter-4 { animation-delay: 0.26s; }
+.enter-5 { animation-delay: 0.34s; }
+.enter-6 { animation-delay: 0.42s; }
+.enter-7 { animation-delay: 0.50s; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 3px; height: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--neutral-100); border-radius: 100px; }
+::-webkit-scrollbar-thumb:hover { background: var(--neutral-300); }
+
+/* Card */
+.card {
+  background: var(--bg-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
+  transition: box-shadow 0.12s ease;
+}
+.card:hover { box-shadow: var(--shadow-md); }
+
+/* Separator */
+.sep-line { height: 1px; background: var(--border-subtle); width: 100%; }
+
+/* PrototypeControls keyframe */
+@keyframes protoPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px #4ade80; }
+  50% { opacity: 0.5; box-shadow: 0 0 2px #4ade80; }
+}
+@keyframes notifPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+}
+
+/* Moodle content */
+.moodle-content {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.75;
+}
+.moodle-content h1 { font-size: 26px; font-weight: 800; color: var(--text-headings); margin: 0 0 20px; }
+.moodle-content h2 { font-size: 19px; font-weight: 700; color: var(--text-headings); margin: 32px 0 14px; }
+.moodle-content h3 { font-size: 16px; font-weight: 700; color: var(--text-headings); margin: 28px 0 12px; }
+.moodle-content p { font-size: 14px; color: var(--text-secondary); line-height: 1.75; margin: 0 0 18px; }
+.moodle-content strong { color: var(--text-primary); font-weight: 700; }
+.moodle-content blockquote {
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--blue-700);
+  background: var(--bg-section);
+  padding: 14px 18px; margin: 0 0 24px;
+}
+.moodle-content table { width: 100%; border-collapse: collapse; margin: 0 0 24px; }
+.moodle-content th { padding: 10px 14px; background: var(--blue-700); color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-align: left; }
+.moodle-content td { padding: 10px 14px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+.moodle-content td:first-child { font-weight: 700; color: var(--text-primary); }
+.moodle-content tr:nth-child(even) td { background: var(--bg-section); }
