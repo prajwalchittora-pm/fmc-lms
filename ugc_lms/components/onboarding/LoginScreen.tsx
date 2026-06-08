@@ -117,7 +117,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
 
         {/* Logo */}
         <div className="login-in login-in-1" style={{ marginBottom: 32 }}>
-          <img src="/logos/Primary_Horizontal_LightBG.svg" alt="FindMyCollege" style={{ height: 72, display: 'block' }}/>
+          <img src="/logos/UniversityLMS_LightBG.svg" alt="University LMS" style={{ height: 64, display: 'block' }}/>
         </div>
 
         {/* Headline */}

@@ -1,6 +1,6 @@
 'use client';
 import { COURSES } from '@/lib/mockData';
-import { Video, FileText, HelpCircle, ArrowRight } from 'lucide-react';
+import { MonitorPlay, BookOpenText, MessageSquare, ClipboardCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ContinueLearningCard({ firstTime }: { firstTime?: boolean } = {}) {
@@ -36,9 +36,10 @@ export default function ContinueLearningCard({ firstTime }: { firstTime?: boolea
         {/* Activity stats */}
         <div style={{ display: 'flex', gap: 20, marginBottom: 16 }}>
           {[
-            { Icon: Video,      done: course.activities.videos.done,   total: course.activities.videos.total,   label: 'Videos' },
-            { Icon: HelpCircle, done: course.activities.quizzes.done,  total: course.activities.quizzes.total,  label: 'Quizzes' },
-            { Icon: FileText,   done: course.activities.pages.done,    total: course.activities.pages.total,    label: 'Pages' },
+            { Icon: MonitorPlay,     done: course.activities.videos.done,       total: course.activities.videos.total,       label: 'E-Tutorial' },
+            { Icon: BookOpenText,    done: course.activities.pages.done,        total: course.activities.pages.total,        label: 'E-Content' },
+            { Icon: MessageSquare,   done: course.activities.discussions.done,  total: course.activities.discussions.total,  label: 'Discussion' },
+            { Icon: ClipboardCheck,  done: course.activities.quizzes.done,      total: course.activities.quizzes.total,      label: 'Assessment' },
           ].map(({ Icon, done, total, label }) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
               <Icon size={14} strokeWidth={1.8} color="var(--text-tertiary)" />

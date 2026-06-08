@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
-import { Home, Video, BarChart2, ClipboardList, LogOut, Check, HelpCircle, ArrowRightLeft, ChevronDown, PanelLeftClose } from 'lucide-react';
+import { Home, BookOpen, BarChart2, FileEdit, Megaphone, MessageSquare, Library, Ticket, CalendarDays, LogOut, Check, HelpCircle, ArrowRightLeft, ChevronDown, PanelLeftClose } from 'lucide-react';
 import { LEARNER, PROGRAMMES, ProgrammeTab } from '@/lib/mockData';
 import { usePrototype } from '@/context/PrototypeContext';
 
@@ -21,11 +21,15 @@ const W_FULL = 272;
 const W_COLLAPSED = 56;
 
 const TAB_META: Record<ProgrammeTab, { label: string; icon: React.ElementType; href: string }> = {
-  overview:      { label: 'Overview',      icon: Home,          href: '/' },
-  learn:         { label: 'Learn',         icon: Home,          href: '/learn' },
-  live_sessions: { label: 'Live Sessions', icon: Video,         href: '/live-sessions' },
-  grades:        { label: 'Grades',        icon: BarChart2,     href: '/grades' },
-  assignments:   { label: 'Assignments',   icon: ClipboardList, href: '/assignments' },
+  overview:       { label: 'Overview',       icon: Home,           href: '/' },
+  courses:        { label: 'Courses',        icon: BookOpen,       href: '/learn' },
+  grades:         { label: 'Grades',         icon: BarChart2,      href: '/grades' },
+  exam:           { label: 'Exam',           icon: FileEdit,       href: '/exam' },
+  announcements:  { label: 'Announcements',  icon: Megaphone,      href: '/announcements' },
+  forum:          { label: 'Forum',          icon: MessageSquare,  href: '/forum' },
+  elibrary:       { label: 'E-Library',      icon: Library,        href: '/elibrary' },
+  tickets:        { label: 'Tickets',        icon: Ticket,         href: '/tickets' },
+  calendar:       { label: 'Calendar',       icon: CalendarDays,   href: '/calendar' },
 };
 
 
@@ -103,11 +107,11 @@ export default function SideNav() {
             title="Expand sidebar"
             style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 36, height: 36, background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
           >
-            <img src="/logos/Icon_Solo_DarkBG.svg" alt="FMC" style={{ height: 34, width: 34, display: 'block' }} />
+            <img src="/logos/UniversityLMS_DarkBG.svg" alt="University LMS" style={{ height: 30, width: 30, display: 'block', objectFit: 'none', objectPosition: 'left center' }} />
           </button>
         ) : (
           <>
-            <img src="/logos/Primary_Horizontal_DarkBG.svg" alt="FindMyCollege" style={{ height: 42, width: 'auto', display: 'block', maxWidth: 180, flex: 1, minWidth: 0 }} />
+            <img src="/logos/UniversityLMS_DarkBG.svg" alt="University LMS" style={{ height: 38, width: 'auto', display: 'block', maxWidth: 200, flex: 1, minWidth: 0 }} />
             <button
               onClick={() => setCollapsed(true)}
               title="Collapse sidebar"
@@ -185,7 +189,7 @@ export default function SideNav() {
       )}
 
       {/* ── Programme-scoped tabs ── */}
-      <nav style={{ padding: collapsed ? '20px 0 8px' : '28px 10px 8px', flex: 1, overflow: 'auto' }}>
+      <nav style={{ padding: collapsed ? '12px 0 4px' : '14px 10px 4px', flex: 1, overflow: 'hidden' }}>
         {activeProg.tabs.map(tabKey => {
           const { label, icon: Icon, href } = TAB_META[tabKey];
           const isActive = href === '/' ? pathname === '/' : pathname?.startsWith(href);
@@ -196,7 +200,7 @@ export default function SideNav() {
               title={label}
               style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: W_COLLAPSED, height: 44,
+                width: W_COLLAPSED, height: 34,
                 borderLeft: isActive ? `3px solid ${ORANGE}` : '3px solid transparent',
                 background: 'transparent',
                 textDecoration: 'none',
@@ -213,9 +217,9 @@ export default function SideNav() {
               href={href}
               style={{
                 display: 'flex', alignItems: 'center', gap: 10,
-                padding: isActive ? '11px 12px 11px 11px' : '11px 12px 11px 13px',
+                padding: isActive ? '7px 12px 7px 11px' : '7px 12px 7px 13px',
                 borderRadius: 0,
-                fontSize: isActive ? 14 : 13.5, fontWeight: isActive ? 700 : 500,
+                fontSize: isActive ? 13.5 : 13, fontWeight: isActive ? 700 : 500,
                 color: isActive ? TEXT_ACTIVE : TEXT,
                 background: 'transparent',
                 borderLeft: isActive ? `3px solid ${ORANGE}` : '3px solid transparent',

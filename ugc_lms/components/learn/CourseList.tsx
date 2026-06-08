@@ -1,6 +1,7 @@
 'use client';
-import { COURSES, Course } from '@/lib/mockData';
-import { Video, HelpCircle, FileText, ArrowRight, CheckCircle2, Play } from 'lucide-react';
+import { useState } from 'react';
+import { COURSES, Course, SEMESTERS, SemesterId } from '@/lib/mockData';
+import { MonitorPlay, BookOpenText, MessageSquare, ClipboardCheck, ArrowRight, CheckCircle2, Play, ChevronDown, Search } from 'lucide-react';
 
 interface Props { onSelect: (id: string) => void; }
 
@@ -150,19 +151,23 @@ function CourseCard({ course, onSelect }: { course: Course; onSelect: () => void
 
       <div style={{ borderTop: '1px solid var(--border-subtle)', margin: '0 16px' }}/>
 
-      {/* Activity counts */}
-      <div style={{ padding: '10px 16px', display: 'flex', gap: 14, alignItems: 'center' }}>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-          <Video size={12} strokeWidth={1.8}/>
-          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.videos.total}</b> videos
+      {/* Activity counts — 2x2 grid */}
+      <div style={{ padding: '10px 16px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6px 12px' }}>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: 'var(--text-secondary)' }}>
+          <MonitorPlay size={10} strokeWidth={1.8}/>
+          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.videos.total}</b> E-Tutorial
         </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-          <HelpCircle size={12} strokeWidth={1.8}/>
-          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.quizzes.total}</b> quizzes
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: 'var(--text-secondary)' }}>
+          <BookOpenText size={10} strokeWidth={1.8}/>
+          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.pages.total}</b> E-Content
         </span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 13, color: 'var(--text-secondary)' }}>
-          <FileText size={12} strokeWidth={1.8}/>
-          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.pages.total}</b> pages
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: 'var(--text-secondary)' }}>
+          <MessageSquare size={10} strokeWidth={1.8}/>
+          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.discussions.total}</b> Discussion
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: 'var(--text-secondary)' }}>
+          <ClipboardCheck size={10} strokeWidth={1.8}/>
+          <b style={{ color: 'var(--text-primary)', fontWeight: 700 }}>{course.activities.quizzes.total}</b> Assessment
         </span>
       </div>
 
@@ -217,13 +222,26 @@ function CourseCard({ course, onSelect }: { course: Course; onSelect: () => void
 }
 
 export default function CourseList({ onSelect }: Props) {
-  const inProgress = COURSES.filter(c => c.status === 'in_progress');
-  const notStarted = COURSES.filter(c => c.status === 'not_started');
-  const completed = COURSES.filter(c => c.status === 'completed');
+  const defaultSem = SEMESTERS.find(s => s.isCurrent)?.id ?? 'all';
+  const [selectedSem, setSelectedSem] = useState<SemesterId | 'all'>(defaultSem);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'in_progress' | 'completed' | 'not_started'>('all');
 
-  const doneCount = COURSES.reduce((acc, c) => acc + c.activities.videos.done + c.activities.quizzes.done + c.activities.pages.done, 0);
-  const totalCount = COURSES.reduce((acc, c) => acc + c.activities.videos.total + c.activities.quizzes.total + c.activities.pages.total, 0);
-  const overallProgress = Math.round((doneCount / totalCount) * 100);
+  const semCourseIds = selectedSem === 'all' ? null : SEMESTERS.find(s => s.id === selectedSem)?.courses ?? [];
+  const filtered = COURSES.filter(c => {
+    const matchSem = !semCourseIds || semCourseIds.includes(c.id);
+    const matchSearch = !search || c.title.toLowerCase().includes(search.toLowerCase());
+    const matchStatus = statusFilter === 'all' || c.status === statusFilter;
+    return matchSem && matchSearch && matchStatus;
+  });
+
+  const inProgress = filtered.filter(c => c.status === 'in_progress');
+  const notStarted = filtered.filter(c => c.status === 'not_started');
+  const completed = filtered.filter(c => c.status === 'completed');
+
+  const doneCount = filtered.reduce((acc, c) => acc + c.activities.videos.done + c.activities.quizzes.done + c.activities.pages.done, 0);
+  const totalCount = filtered.reduce((acc, c) => acc + c.activities.videos.total + c.activities.quizzes.total + c.activities.pages.total, 0);
+  const overallProgress = totalCount > 0 ? Math.round((doneCount / totalCount) * 100) : 0;
 
   const Section = ({ title, courses, color }: { title: string; courses: Course[]; color?: string }) => (
     <div style={{ marginBottom: 36 }}>
@@ -275,11 +293,61 @@ export default function CourseList({ onSelect }: Props) {
               <div className="progress-fill" style={{ width: `${overallProgress}%` }}/>
             </div>
             <div style={{ fontSize: 10.5, color: 'var(--text-tertiary)', marginTop: 4, fontWeight: 500 }}>
-              {doneCount} / {totalCount} activities · {COURSES.length} courses
+              {doneCount} / {totalCount} activities · {filtered.length} courses
             </div>
           </div>
         </div>
       </div>
+
+      {/* Filters row */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, gap: 12 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          {/* Semester dropdown */}
+          <div style={{ position: 'relative', display: 'inline-flex' }}>
+            <select
+              value={selectedSem}
+              onChange={e => setSelectedSem(e.target.value as SemesterId | 'all')}
+              style={{ appearance: 'none', WebkitAppearance: 'none', padding: '6px 28px 6px 12px', fontSize: 12, fontWeight: 700, fontFamily: 'var(--font-sans)', color: 'var(--text-primary)', background: 'var(--bg-section)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', outline: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center' }}
+            >
+              <option value="all">All Semesters</option>
+              {SEMESTERS.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
+            </select>
+            <ChevronDown size={12} style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)', pointerEvents: 'none' }} />
+          </div>
+
+          {/* Status filter pills */}
+          {([['all', 'All'], ['in_progress', 'In Progress'], ['completed', 'Completed'], ['not_started', 'Not Started']] as const).map(([key, label]) => {
+            const active = statusFilter === key;
+            const count = key === 'all' ? filtered.length : filtered.filter(c => c.status === key).length;
+            return (
+              <button key={key} onClick={() => setStatusFilter(key as typeof statusFilter)}
+                style={{ padding: '5px 12px', fontSize: 11, fontWeight: 600, fontFamily: 'var(--font-sans)', background: active ? 'var(--text-primary)' : 'transparent', color: active ? '#fff' : 'var(--text-tertiary)', border: active ? 'none' : '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer' }}
+              >
+                {label} {count > 0 && <span style={{ opacity: 0.7, marginLeft: 2 }}>{count}</span>}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Search */}
+        <div style={{ position: 'relative', width: 220 }}>
+          <Search size={13} style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
+          <input
+            type="text" placeholder="Search courses..."
+            value={search} onChange={e => setSearch(e.target.value)}
+            style={{ width: '100%', padding: '6px 10px 6px 30px', fontSize: 12, fontFamily: 'var(--font-sans)', fontWeight: 500, color: 'var(--text-primary)', background: 'var(--bg-section)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box' }}
+            onFocus={e => { e.currentTarget.style.borderColor = 'var(--text-tertiary)'; e.currentTarget.style.background = '#fff'; }}
+            onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; e.currentTarget.style.background = 'var(--bg-section)'; }}
+          />
+        </div>
+      </div>
+
+      {filtered.length === 0 && (
+        <div style={{ padding: '48px 0', textAlign: 'center', color: 'var(--text-tertiary)' }}>
+          <div style={{ fontSize: 14, fontWeight: 600, marginBottom: 4 }}>No courses found</div>
+          <div style={{ fontSize: 12 }}>Try changing the semester or search query</div>
+        </div>
+      )}
 
       {inProgress.length > 0 && <Section title="In progress" courses={inProgress}/>}
       {notStarted.length > 0 && <Section title="Up next" courses={notStarted}/>}

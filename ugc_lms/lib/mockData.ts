@@ -33,6 +33,7 @@ export interface Course {
     videos: { done: number; total: number };
     quizzes: { done: number; total: number };
     pages: { done: number; total: number };
+    discussions: { done: number; total: number };
   };
   colorAccent: string;
   gradientFrom: string;
@@ -48,7 +49,7 @@ export const COURSES: Course[] = [
     subtitle: 'Build clarity, confidence, and impact in spoken communication',
     status: 'in_progress',
     progress: 65,
-    activities: { videos: { done: 5, total: 8 }, quizzes: { done: 2, total: 5 }, pages: { done: 4, total: 7 } },
+    activities: { videos: { done: 5, total: 8 }, quizzes: { done: 2, total: 5 }, pages: { done: 4, total: 7 }, discussions: { done: 3, total: 6 } },
     colorAccent: '#072fb5',
     gradientFrom: '#072fb5',
     gradientTo: '#4B7BF5',
@@ -61,7 +62,7 @@ export const COURSES: Course[] = [
     subtitle: 'Master the art of listening and collaborative communication',
     status: 'in_progress',
     progress: 30,
-    activities: { videos: { done: 2, total: 6 }, quizzes: { done: 1, total: 4 }, pages: { done: 2, total: 8 } },
+    activities: { videos: { done: 2, total: 6 }, quizzes: { done: 1, total: 4 }, pages: { done: 2, total: 8 }, discussions: { done: 1, total: 4 } },
     colorAccent: '#059669',
     gradientFrom: '#059669',
     gradientTo: '#34D399',
@@ -74,7 +75,7 @@ export const COURSES: Course[] = [
     subtitle: 'Craft compelling emails, reports, and professional documents',
     status: 'completed',
     progress: 100,
-    activities: { videos: { done: 6, total: 6 }, quizzes: { done: 4, total: 4 }, pages: { done: 5, total: 5 } },
+    activities: { videos: { done: 6, total: 6 }, quizzes: { done: 4, total: 4 }, pages: { done: 5, total: 5 }, discussions: { done: 4, total: 4 } },
     colorAccent: '#D97706',
     gradientFrom: '#D97706',
     gradientTo: '#FCD34D',
@@ -87,7 +88,7 @@ export const COURSES: Course[] = [
     subtitle: 'Analyse complex texts and communicate insights with precision',
     status: 'not_started',
     progress: 0,
-    activities: { videos: { done: 0, total: 7 }, quizzes: { done: 0, total: 5 }, pages: { done: 0, total: 9 } },
+    activities: { videos: { done: 0, total: 7 }, quizzes: { done: 0, total: 5 }, pages: { done: 0, total: 9 }, discussions: { done: 0, total: 5 } },
     colorAccent: '#7C3AED',
     gradientFrom: '#7C3AED',
     gradientTo: '#A78BFA',
@@ -99,7 +100,7 @@ export const COURSES: Course[] = [
     subtitle: 'Navigate workplace dynamics with confidence and professionalism',
     status: 'not_started',
     progress: 0,
-    activities: { videos: { done: 0, total: 6 }, quizzes: { done: 0, total: 3 }, pages: { done: 0, total: 8 } },
+    activities: { videos: { done: 0, total: 6 }, quizzes: { done: 0, total: 3 }, pages: { done: 0, total: 8 }, discussions: { done: 0, total: 3 } },
     colorAccent: '#DC2626',
     gradientFrom: '#DC2626',
     gradientTo: '#F87171',
@@ -111,7 +112,7 @@ export const COURSES: Course[] = [
     subtitle: 'Prepare for interviews, networking, and career growth',
     status: 'not_started',
     progress: 0,
-    activities: { videos: { done: 0, total: 8 }, quizzes: { done: 0, total: 4 }, pages: { done: 0, total: 6 } },
+    activities: { videos: { done: 0, total: 8 }, quizzes: { done: 0, total: 4 }, pages: { done: 0, total: 6 }, discussions: { done: 0, total: 4 } },
     colorAccent: '#0891B2',
     gradientFrom: '#0891B2',
     gradientTo: '#67E8F9',
@@ -123,7 +124,7 @@ export const COURSES: Course[] = [
     subtitle: 'Master academic English and prepare for global certification',
     status: 'not_started',
     progress: 0,
-    activities: { videos: { done: 0, total: 10 }, quizzes: { done: 0, total: 6 }, pages: { done: 0, total: 12 } },
+    activities: { videos: { done: 0, total: 10 }, quizzes: { done: 0, total: 6 }, pages: { done: 0, total: 12 }, discussions: { done: 0, total: 5 } },
     colorAccent: '#BE185D',
     gradientFrom: '#BE185D',
     gradientTo: '#F472B6',
@@ -247,7 +248,65 @@ export function getRemainingActivities() {
 export type ProgrammeType = 'self_paced' | 'live_sessions' | 'grades_based';
 export type MilestoneStatus = 'completed' | 'current' | 'upcoming';
 export type CriteriaType = 'completion' | 'grades' | 'attendance_and_completion';
-export type ProgrammeTab = 'overview' | 'learn' | 'live_sessions' | 'grades' | 'assignments';
+export type ProgrammeTab = 'overview' | 'courses' | 'grades' | 'exam' | 'announcements' | 'forum' | 'elibrary' | 'tickets' | 'calendar';
+
+// ─── UGC LMS: SEMESTERS & ENGAGEMENT ────────────────────────────────────────
+
+export type SemesterId = 'sem-1' | 'sem-2' | 'sem-3' | 'sem-4';
+
+export interface Semester {
+  id: SemesterId;
+  label: string;
+  courses: string[]; // course IDs
+  isCurrent: boolean;
+}
+
+export const SEMESTERS: Semester[] = [
+  { id: 'sem-1', label: 'Semester 1', courses: ['spoken-english', 'active-listening', 'business-writing'], isCurrent: false },
+  { id: 'sem-2', label: 'Semester 2', courses: ['reading-comprehension', 'workplace-skills', 'career-readiness'], isCurrent: true },
+  { id: 'sem-3', label: 'Semester 3', courses: ['ielts-readiness'], isCurrent: false },
+  { id: 'sem-4', label: 'Semester 4', courses: [], isCurrent: false },
+];
+
+export interface EngagementComponent {
+  name: string;
+  yourTime: string;
+  targetTime: string;
+  completion: number | null; // null = N/A
+  weight: number;
+  score: number;
+}
+
+export interface EngagementScore {
+  total: number;
+  maxScore: number;
+  status: 'Lacking' | 'Needs Improvement' | 'Satisfactory' | 'Good' | 'Excellent';
+  statusColor: string;
+  totalTime: string;
+  totalTarget: string;
+  totalCompletion: number;
+  components: EngagementComponent[];
+}
+
+export function getEngagementScore(_semesterId: SemesterId): EngagementScore {
+  // Mock data — in production this comes from API
+  return {
+    total: 42,
+    maxScore: 100,
+    status: 'Needs Improvement',
+    statusColor: '#D97706',
+    totalTime: '28.5h',
+    totalTarget: '144h',
+    totalCompletion: 19,
+    components: [
+      { name: 'Synchronous Counselling', yourTime: '2h', targetTime: '14h', completion: null, weight: 10, score: 1.4 },
+      { name: 'Discussion Forum', yourTime: '8h', targetTime: '144h', completion: 6, weight: 20, score: 1.1 },
+      { name: 'E-Tutorial (Video)', yourTime: '6.5h', targetTime: '40h', completion: 16, weight: 16.67, score: 2.7 },
+      { name: 'E-Content (SLM)', yourTime: '4h', targetTime: '30h', completion: 13, weight: 16.67, score: 2.2 },
+      { name: 'Self-Study', yourTime: '8h', targetTime: '60h', completion: 13, weight: 36.67, score: 4.9 },
+    ],
+  };
+}
 
 export interface ProgrammeMilestone {
   id: string;
@@ -325,7 +384,7 @@ export const PROGRAMMES: Programme[] = [
     overallProgress: 42,
     lastAccessedLabel: '2h ago',
     eta: '8 weeks',
-    tabs: ['overview'] as ProgrammeTab[],
+    tabs: ['overview', 'courses', 'grades', 'exam', 'announcements', 'forum', 'elibrary', 'tickets', 'calendar'] as ProgrammeTab[],
     criteria: {
       type: 'completion',
       coursesTotal: 7,
@@ -380,7 +439,7 @@ export const PROGRAMMES: Programme[] = [
     overallProgress: 28,
     lastAccessedLabel: 'Yesterday',
     eta: '10 weeks',
-    tabs: ['overview', 'live_sessions'] as ProgrammeTab[],
+    tabs: ['overview', 'courses', 'grades', 'exam', 'announcements', 'forum', 'elibrary', 'tickets', 'calendar'] as ProgrammeTab[],
     criteria: {
       type: 'attendance_and_completion',
       coursesTotal: 7,
@@ -457,7 +516,7 @@ export const PROGRAMMES: Programme[] = [
     overallProgress: 38,
     lastAccessedLabel: '3d ago',
     eta: '12 weeks',
-    tabs: ['overview', 'grades'] as ProgrammeTab[],
+    tabs: ['overview', 'courses', 'grades', 'exam', 'announcements', 'forum', 'elibrary', 'tickets', 'calendar'] as ProgrammeTab[],
     criteria: {
       type: 'grades',
       coursesTotal: 5,
@@ -497,3 +556,109 @@ export const PROGRAMMES: Programme[] = [
 ];
 
 export const DEFAULT_PROGRAMME_ID = 'ai-product';
+
+// ─── GRADES DATA ──────────────────────────────────────────────────────────────
+
+export type GradeStatus = 'passed' | 'failed' | 'pending';
+
+export interface AssessmentDetail {
+  name: string;
+  marks: number;
+  maxMarks: number;
+  date?: string;
+}
+
+export interface CourseGrade {
+  id: string;
+  code: string;
+  name: string;
+  credits: number;
+  status: GradeStatus;
+  internal: { marks: number; maxMarks: number; assignments: AssessmentDetail[]; quizzes: AssessmentDetail[] };
+  endSem: { marks: number; maxMarks: number; eligible: boolean };
+  total: { marks: number; maxMarks: number; percentage: number };
+  grade: string;
+  gradePoint: number;
+  attendance: { percentage: number; present: number; total: number; hasLiveSessions: boolean };
+}
+
+export interface SemesterGrades {
+  semesterId: SemesterId;
+  sgpa: number;
+  cgpa: number;
+  creditsEarned: number;
+  totalCredits: number;
+  coursesCompleted: number;
+  totalCourses: number;
+  avgAttendance: number;
+  courses: CourseGrade[];
+}
+
+export function getSemesterGrades(semId: SemesterId): SemesterGrades {
+  const courses: CourseGrade[] = [
+    {
+      id: 'g1', code: 'MBA-101', name: 'Managerial Economics', credits: 4, status: 'passed',
+      internal: { marks: 32, maxMarks: 40, assignments: [{ name: 'Assignment 1: Demand Analysis', marks: 8, maxMarks: 10, date: 'Feb 15' }, { name: 'Assignment 2: Cost Structures', marks: 7, maxMarks: 10, date: 'Mar 10' }], quizzes: [{ name: 'Quiz 1: Micro Foundations', marks: 9, maxMarks: 10, date: 'Feb 28' }, { name: 'Quiz 2: Market Structures', marks: 8, maxMarks: 10, date: 'Apr 5' }] },
+      endSem: { marks: 52, maxMarks: 60, eligible: true },
+      total: { marks: 84, maxMarks: 100, percentage: 84 },
+      grade: 'A', gradePoint: 8.5,
+      attendance: { percentage: 88, present: 22, total: 25, hasLiveSessions: true },
+    },
+    {
+      id: 'g2', code: 'MBA-102', name: 'Managerial Communication', credits: 3, status: 'passed',
+      internal: { marks: 28, maxMarks: 40, assignments: [{ name: 'Case Study Presentation', marks: 7, maxMarks: 10, date: 'Feb 20' }, { name: 'Written Communication Portfolio', marks: 6, maxMarks: 10, date: 'Mar 25' }], quizzes: [{ name: 'Quiz 1: Comm Fundamentals', marks: 8, maxMarks: 10, date: 'Mar 1' }, { name: 'Quiz 2: Persuasion Techniques', marks: 7, maxMarks: 10, date: 'Apr 12' }] },
+      endSem: { marks: 41, maxMarks: 60, eligible: true },
+      total: { marks: 69, maxMarks: 100, percentage: 69 },
+      grade: 'B+', gradePoint: 7.5,
+      attendance: { percentage: 92, present: 23, total: 25, hasLiveSessions: true },
+    },
+    {
+      id: 'g3', code: 'MBA-103', name: 'Financial Accounting & Analysis', credits: 4, status: 'passed',
+      internal: { marks: 35, maxMarks: 40, assignments: [{ name: 'Balance Sheet Analysis', marks: 9, maxMarks: 10, date: 'Feb 18' }, { name: 'Ratio Analysis Project', marks: 8, maxMarks: 10, date: 'Mar 20' }], quizzes: [{ name: 'Quiz 1: Journal Entries', marks: 9, maxMarks: 10, date: 'Mar 5' }, { name: 'Quiz 2: Financial Statements', marks: 9, maxMarks: 10, date: 'Apr 8' }] },
+      endSem: { marks: 54, maxMarks: 60, eligible: true },
+      total: { marks: 89, maxMarks: 100, percentage: 89 },
+      grade: 'A+', gradePoint: 9.0,
+      attendance: { percentage: 96, present: 24, total: 25, hasLiveSessions: true },
+    },
+    {
+      id: 'g4', code: 'MBA-104', name: 'Organizational Behaviour', credits: 3, status: 'pending',
+      internal: { marks: 22, maxMarks: 40, assignments: [{ name: 'Group Dynamics Report', marks: 5, maxMarks: 10, date: 'Mar 1' }, { name: 'Leadership Case Analysis', marks: 6, maxMarks: 10, date: 'Apr 1' }], quizzes: [{ name: 'Quiz 1: Motivation Theories', marks: 6, maxMarks: 10, date: 'Mar 15' }, { name: 'Quiz 2: Team Dynamics', marks: 5, maxMarks: 10, date: 'Apr 20' }] },
+      endSem: { marks: 0, maxMarks: 60, eligible: false },
+      total: { marks: 22, maxMarks: 100, percentage: 22 },
+      grade: '-', gradePoint: 0,
+      attendance: { percentage: 68, present: 17, total: 25, hasLiveSessions: true },
+    },
+    {
+      id: 'g5', code: 'MBA-105', name: 'Business Statistics', credits: 4, status: 'passed',
+      internal: { marks: 30, maxMarks: 40, assignments: [{ name: 'Hypothesis Testing Report', marks: 8, maxMarks: 10, date: 'Feb 22' }, { name: 'Regression Analysis', marks: 7, maxMarks: 10, date: 'Mar 28' }], quizzes: [{ name: 'Quiz 1: Probability', marks: 8, maxMarks: 10, date: 'Mar 8' }, { name: 'Quiz 2: Distributions', marks: 7, maxMarks: 10, date: 'Apr 15' }] },
+      endSem: { marks: 45, maxMarks: 60, eligible: true },
+      total: { marks: 75, maxMarks: 100, percentage: 75 },
+      grade: 'B+', gradePoint: 7.5,
+      attendance: { percentage: 84, present: 21, total: 25, hasLiveSessions: true },
+    },
+    {
+      id: 'g6', code: 'MBA-106', name: 'Business Law & Ethics', credits: 2, status: 'passed',
+      internal: { marks: 26, maxMarks: 40, assignments: [{ name: 'Contract Law Essay', marks: 7, maxMarks: 10, date: 'Mar 5' }], quizzes: [{ name: 'Quiz 1: Legal Framework', marks: 10, maxMarks: 10, date: 'Mar 20' }, { name: 'Quiz 2: Corporate Law', marks: 9, maxMarks: 10, date: 'Apr 18' }] },
+      endSem: { marks: 38, maxMarks: 60, eligible: true },
+      total: { marks: 64, maxMarks: 100, percentage: 64 },
+      grade: 'B', gradePoint: 7.0,
+      attendance: { percentage: 80, present: 20, total: 25, hasLiveSessions: false },
+    },
+  ];
+
+  const passed = courses.filter(c => c.status === 'passed');
+  const totalWeightedGP = passed.reduce((s, c) => s + c.gradePoint * c.credits, 0);
+  const totalPassedCredits = passed.reduce((s, c) => s + c.credits, 0);
+
+  return {
+    semesterId: semId,
+    sgpa: totalPassedCredits > 0 ? parseFloat((totalWeightedGP / totalPassedCredits).toFixed(2)) : 0,
+    cgpa: totalPassedCredits > 0 ? parseFloat(((totalWeightedGP / totalPassedCredits) * 0.97).toFixed(2)) : 0,
+    creditsEarned: totalPassedCredits,
+    totalCredits: courses.reduce((s, c) => s + c.credits, 0),
+    coursesCompleted: passed.length,
+    totalCourses: courses.length,
+    avgAttendance: Math.round(courses.reduce((s, c) => s + c.attendance.percentage, 0) / courses.length),
+    courses,
+  };
+}

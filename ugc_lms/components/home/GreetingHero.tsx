@@ -16,7 +16,7 @@ function formatDate() {
 
 export default function GreetingHero() {
   return (
-    <div className="enter enter-1" style={{ marginBottom: 36 }}>
+    <div className="enter enter-1" style={{ marginBottom: 10 }}>
       {/* Date line */}
       <div style={{
         fontSize: 11, fontWeight: 600, letterSpacing: '0.08em',
