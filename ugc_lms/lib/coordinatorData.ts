@@ -359,7 +359,7 @@ export function getProgrammeTypeColor(type: ProgrammeType): string { return TYPE
 
 // ─── Activity types for the course editor ───────────────────────────────────
 
-export type EditorActivityType = 'video' | 'page' | 'pdf' | 'quiz' | 'assignment' | 'forum_topic' | 'live_session';
+export type EditorActivityType = 'video' | 'page' | 'pdf' | 'quiz' | 'assignment' | 'forum_topic' | 'live_session' | 'scorm';
 
 export interface ActivityTypeOption {
   type: EditorActivityType;
@@ -377,4 +377,5 @@ export const ACTIVITY_TYPE_OPTIONS: ActivityTypeOption[] = [
   { type: 'assignment', label: 'Assignment', description: 'File or text submission with grading', quadrant: 'Assessment', color: '#DC2626' },
   { type: 'forum_topic', label: 'Discussion Topic', description: 'Start a forum discussion thread', quadrant: 'Discussion', color: '#0DA88F' },
   { type: 'live_session', label: 'Live Session', description: 'Schedule a Zoom session', quadrant: 'Live Session', color: '#072FB5' },
+  { type: 'scorm', label: 'SCORM Package', description: 'Upload an interactive SCORM module', quadrant: 'E-Content', color: '#6B7280' },
 ];

@@ -785,21 +785,40 @@ function CreateStudentModal({ onClose, onCreate }: { onClose: () => void; onCrea
   const canCreate = firstName && lastName && username && email && password && rollNo;
   const programmes = [{ code: 'MBA-26', name: 'MBA - Batch 2026' }, { code: 'BCA-26', name: 'BCA - Batch 2026' }, { code: 'B.Tech CSE-26', name: 'B.Tech CSE - Batch 2026' }, { code: 'MCA-26', name: 'MCA - Batch 2026' }];
 
-  const inputStyle = { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: 'var(--font-sans)', fontWeight: 500 as const, color: 'var(--text-primary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box' as const };
+  const inputStyle = { width: '100%', padding: '9px 12px', fontSize: 13, fontFamily: 'var(--font-sans)', fontWeight: 500 as const, color: 'var(--text-primary)', background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box' as const };
   const labelStyle = { display: 'block' as const, fontSize: 11, fontWeight: 700 as const, color: 'var(--text-secondary)', marginBottom: 5 };
   const req = <span style={{ color: '#DC2626' }}>*</span>;
-  const focusHandler = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => { e.currentTarget.style.borderColor = 'var(--blue-700)'; };
-  const blurHandler = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; };
+  const focusHandler = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; };
+  const blurHandler = (e: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{ width: 560, maxHeight: '90vh', background: '#fff', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 64px rgba(0,0,0,0.20)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
-        <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between', flexShrink: 0 }}>
-          <div>
-            <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Create Student Account</h3>
-            <p style={{ margin: '3px 0 0', fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>Create a new LMS account and enroll in a programme</p>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)' }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ width: 560, maxHeight: '90vh', background: '#fff', borderRadius: 16, boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+        {/* Dark gradient header */}
+        <div style={{ background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)', padding: '20px 24px 18px', flexShrink: 0 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', display: 'grid', placeItems: 'center' }}>
+                <Users size={20} strokeWidth={1.8} style={{ color: '#fff' }} />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Create Student Account</h3>
+                <p style={{ margin: '3px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Create a new LMS account and enroll in a programme</p>
+              </div>
+            </div>
+            <button onClick={onClose} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', cursor: 'pointer', display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,0.7)', flexShrink: 0 }}><X size={16} /></button>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 2, display: 'flex' }}><X size={18} /></button>
+          {/* Hero input - First Name */}
+          <div>
+            <label style={{ display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.45)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 6 }}>First Name *</label>
+            <input type="text" placeholder="Enter first name..." value={firstName} onChange={e => setFirstName(e.target.value)} style={{
+              width: '100%', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-sans)', fontWeight: 600, color: '#fff',
+              background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10, outline: 'none', boxSizing: 'border-box',
+            }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.3)'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.background = 'rgba(255,255,255,0.07)'; }}
+            />
+          </div>
         </div>
 
         <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1, overflowY: 'auto' }}>
@@ -807,17 +826,16 @@ function CreateStudentModal({ onClose, onCreate }: { onClose: () => void; onCrea
           <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-tertiary)', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: -4 }}>Account Details</div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
-            <div><label style={labelStyle}>First Name {req}</label><input type="text" placeholder="Arjun" value={firstName} onChange={e => setFirstName(e.target.value)} style={inputStyle} onFocus={focusHandler} onBlur={blurHandler} /></div>
             <div><label style={labelStyle}>Last Name {req}</label><input type="text" placeholder="Mehta" value={lastName} onChange={e => setLastName(e.target.value)} style={inputStyle} onFocus={focusHandler} onBlur={blurHandler} /></div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <div><label style={labelStyle}>Username {req}</label><input type="text" placeholder="arjun.mehta" value={username} onChange={e => setUsername(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)' }} onFocus={focusHandler} onBlur={blurHandler} /></div>
-            <div><label style={labelStyle}>Password {req}</label><input type="password" placeholder="Min 8 characters" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} onFocus={focusHandler} onBlur={blurHandler} /></div>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div><label style={labelStyle}>Password {req}</label><input type="password" placeholder="Min 8 characters" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} onFocus={focusHandler} onBlur={blurHandler} /></div>
             <div><label style={labelStyle}>Email {req}</label><input type="email" placeholder="arjun@university.edu" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} onFocus={focusHandler} onBlur={blurHandler} /></div>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
             <div><label style={labelStyle}>Phone Number</label><input type="tel" placeholder="9876543210" value={phone} onChange={e => setPhone(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)' }} onFocus={focusHandler} onBlur={blurHandler} /></div>
           </div>
 
@@ -842,12 +860,13 @@ function CreateStudentModal({ onClose, onCreate }: { onClose: () => void; onCrea
           </div>
         </div>
 
-        <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10, flexShrink: 0 }}>
-          <button onClick={onClose} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+        <div style={{ padding: '14px 24px', background: '#FAFAFA', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10, flexShrink: 0 }}>
+          <button onClick={onClose} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
           <button onClick={() => { if (!canCreate) return; onCreate({ id: 'new-' + Date.now(), name: fullName, initials: `${firstName[0]}${lastName[0]}`.toUpperCase(), rollNo, email, phone, programme: programmes.find(p => p.code === programme)?.name || '', programmeCode: programme, semester: parseInt(semester), status: 'active', lastActive: 'Just now', lastLogin: 'Just now', avgGrade: 0, avgAttendance: 0, engagementScore: 0, assignmentsSubmitted: 0, assignmentsTotal: 0, quizzesAttempted: 0, quizzesTotal: 0 }); onClose(); }} disabled={!canCreate} style={{
             padding: '8px 22px', fontSize: 13, fontWeight: 700, color: '#fff',
             background: canCreate ? 'var(--blue-700)' : 'var(--border-subtle)',
-            border: 'none', borderRadius: 'var(--radius-sm)', cursor: canCreate ? 'pointer' : 'not-allowed', fontFamily: 'var(--font-sans)',
+            border: 'none', borderRadius: 8, cursor: canCreate ? 'pointer' : 'not-allowed', fontFamily: 'var(--font-sans)',
+            boxShadow: canCreate ? '0 2px 8px rgba(7,47,181,0.25)' : 'none',
           }}>Create & Enroll</button>
         </div>
       </div>
@@ -861,14 +880,22 @@ function BulkUploadModal({ onClose }: { onClose: () => void }) {
   const CSV_COLUMNS = ['username', 'first_name', 'last_name', 'email', 'phone', 'password', 'roll_number', 'deb_id', 'aadhaar', 'programme_code', 'semester'];
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{ width: 520, background: '#fff', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 64px rgba(0,0,0,0.20)', overflow: 'hidden' }}>
-        <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Bulk Upload Students</h3>
-            <p style={{ margin: '3px 0 0', fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>Upload a CSV file to create multiple student accounts</p>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)' }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ width: 520, background: '#fff', borderRadius: 16, boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        {/* Dark gradient header */}
+        <div style={{ background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)', padding: '20px 24px 18px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', display: 'grid', placeItems: 'center' }}>
+                <Upload size={20} strokeWidth={1.8} style={{ color: '#fff' }} />
+              </div>
+              <div>
+                <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Bulk Upload Students</h3>
+                <p style={{ margin: '3px 0 0', fontSize: 12, color: 'rgba(255,255,255,0.5)', fontWeight: 500 }}>Upload a CSV file to create multiple student accounts</p>
+              </div>
+            </div>
+            <button onClick={onClose} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', cursor: 'pointer', display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,0.7)', flexShrink: 0 }}><X size={16} /></button>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 2, display: 'flex' }}><X size={18} /></button>
         </div>
 
         <div style={{ padding: '24px' }}>
@@ -909,11 +936,11 @@ function BulkUploadModal({ onClose }: { onClose: () => void }) {
           </button>
         </div>
 
-        <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-          <button onClick={onClose} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+        <div style={{ padding: '14px 24px', background: '#FAFAFA', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+          <button onClick={onClose} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
           <button disabled style={{
             padding: '8px 22px', fontSize: 13, fontWeight: 700, color: '#fff',
-            background: 'var(--border-subtle)', border: 'none', borderRadius: 'var(--radius-sm)',
+            background: 'var(--border-subtle)', border: 'none', borderRadius: 8,
             cursor: 'not-allowed', fontFamily: 'var(--font-sans)',
           }}>Upload & Create</button>
         </div>
@@ -1102,25 +1129,34 @@ export default function StudentsView() {
         <BulkUploadModal onClose={() => setShowBulkUpload(false)} />
       )}
       {deleteConfirmIds && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }} onClick={() => setDeleteConfirmIds(null)}>
-          <div onClick={e => e.stopPropagation()} style={{ width: 400, background: '#fff', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 64px rgba(0,0,0,0.20)', overflow: 'hidden' }}>
-            <div style={{ padding: '24px 24px 16px' }}>
-              <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(220,38,38,0.08)', display: 'grid', placeItems: 'center', marginBottom: 14 }}>
-                <Trash2 size={18} strokeWidth={1.8} style={{ color: '#DC2626' }} />
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)' }} onClick={() => setDeleteConfirmIds(null)}>
+          <div onClick={e => e.stopPropagation()} style={{ width: 420, background: '#fff', borderRadius: 16, boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+            {/* Dark gradient header with warning tone */}
+            <div style={{ background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)', padding: '20px 24px 18px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(255,255,255,0.12)', display: 'grid', placeItems: 'center' }}>
+                    <Trash2 size={20} strokeWidth={1.8} style={{ color: '#fff' }} />
+                  </div>
+                  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
+                    Delete {deleteConfirmIds.size} student{deleteConfirmIds.size > 1 ? 's' : ''}?
+                  </h3>
+                </div>
+                <button onClick={() => setDeleteConfirmIds(null)} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', cursor: 'pointer', display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,0.7)', flexShrink: 0 }}><X size={16} /></button>
               </div>
-              <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
-                Delete {deleteConfirmIds.size} student{deleteConfirmIds.size > 1 ? 's' : ''}?
-              </h3>
-              <p style={{ margin: '8px 0 0', fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            </div>
+            <div style={{ padding: '20px 24px' }}>
+              <p style={{ margin: 0, fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
                 This will permanently remove {deleteConfirmIds.size > 1 ? 'these accounts' : 'this account'} and all associated data including grades, submissions, and activity history. This action cannot be undone.
               </p>
             </div>
-            <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-              <button onClick={() => setDeleteConfirmIds(null)} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+            <div style={{ padding: '14px 24px', background: '#FAFAFA', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
+              <button onClick={() => setDeleteConfirmIds(null)} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
               <button onClick={() => { setStudents(prev => prev.filter(s => !deleteConfirmIds.has(s.id))); setSelectedIds(new Set()); setDeleteConfirmIds(null); }} style={{
                 padding: '8px 22px', fontSize: 13, fontWeight: 700, color: '#fff',
-                background: '#DC2626', border: 'none', borderRadius: 'var(--radius-sm)',
+                background: '#DC2626', border: 'none', borderRadius: 8,
                 cursor: 'pointer', fontFamily: 'var(--font-sans)',
+                boxShadow: '0 2px 8px rgba(220,38,38,0.25)',
               }}>Delete Permanently</button>
             </div>
           </div>

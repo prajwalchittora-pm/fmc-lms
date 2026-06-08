@@ -135,17 +135,17 @@ function FilterDropdown({ label, value, options, onChange }: {
 
 function Breadcrumb({ items }: { items: { label: string; onClick?: () => void }[] }) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 14 }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
       {items.map((item, i) => (
-        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          {i > 0 && <ChevronRight size={12} style={{ color: 'var(--text-tertiary)' }} />}
+        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          {i > 0 && <ChevronRight size={14} style={{ color: 'var(--text-tertiary)' }} />}
           {item.onClick ? (
-            <button onClick={item.onClick} style={{ fontSize: 12, fontWeight: 600, color: 'var(--blue-700)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'var(--font-sans)' }}
+            <button onClick={item.onClick} style={{ fontSize: 14, fontWeight: 600, color: 'var(--blue-700)', background: 'none', border: 'none', cursor: 'pointer', padding: 0, fontFamily: 'var(--font-sans)' }}
               onMouseEnter={e => { e.currentTarget.style.textDecoration = 'underline'; }}
               onMouseLeave={e => { e.currentTarget.style.textDecoration = 'none'; }}
             >{item.label}</button>
           ) : (
-            <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-primary)' }}>{item.label}</span>
+            <span style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-primary)' }}>{item.label}</span>
           )}
         </div>
       ))}
@@ -195,64 +195,96 @@ function CreateProgrammeModal({ onClose, onCreate }: { onClose: () => void; onCr
   const labelStyle = { display: 'block' as const, fontSize: 12, fontWeight: 700 as const, color: 'var(--text-secondary)', marginBottom: 6 };
 
   return (
-    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }} onClick={onClose}>
-      <div onClick={e => e.stopPropagation()} style={{ width: 500, background: '#fff', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 64px rgba(0,0,0,0.20)', overflow: 'hidden' }}>
-        <div style={{ padding: '22px 28px 18px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em' }}>Create Programme</h3>
-            <p style={{ margin: '4px 0 0', fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>Set up a new programme with semester structure</p>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)' }} onClick={onClose}>
+      <div onClick={e => e.stopPropagation()} style={{ width: 540, background: '#fff', borderRadius: 16, boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        {/* Dark gradient header */}
+        <div style={{ padding: '24px 28px 22px', background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', display: 'grid', placeItems: 'center' }}>
+                <GraduationCap size={22} strokeWidth={1.8} style={{ color: '#fff' }} />
+              </div>
+              <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em' }}>Create Programme</h3>
+            </div>
+            <button onClick={onClose} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: 'none', cursor: 'pointer', display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,0.5)' }}><X size={16} /></button>
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 4, display: 'flex' }}><X size={18} /></button>
-        </div>
-
-        <div style={{ padding: '24px 28px', display: 'flex', flexDirection: 'column', gap: 18 }}>
-          <div>
-            <label style={labelStyle}>Programme Name <span style={{ color: '#DC2626' }}>*</span></label>
-            <input type="text" placeholder="e.g. Master of Business Administration" value={name} onChange={e => setName(e.target.value)} style={inputStyle}
-              onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; e.currentTarget.style.boxShadow = 'var(--shadow-focus-blue)'; }}
-              onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; e.currentTarget.style.boxShadow = 'none'; }}
+          {/* Hero name input */}
+          <div style={{ marginTop: 18 }}>
+            <label style={{ display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: 6, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Programme Name</label>
+            <input type="text" placeholder="e.g. Master of Business Administration" value={name} onChange={e => setName(e.target.value)} style={{
+              width: '100%', padding: '12px 16px', fontSize: 15, fontWeight: 600, fontFamily: 'var(--font-display)', color: '#fff',
+              background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.55)', borderRadius: 10, outline: 'none', boxSizing: 'border-box',
+              letterSpacing: '-0.01em', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+            }}
+              onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.08)'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}
             />
           </div>
+        </div>
+
+        <div style={{ padding: '22px 28px', display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
             <div>
-              <label style={labelStyle}>Programme Code <span style={{ color: '#DC2626' }}>*</span></label>
-              <input type="text" placeholder="e.g. MBA, BCA" value={code} onChange={e => setCode(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)', fontWeight: 700 as const }}
-                onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Programme Code <span style={{ color: '#072FB5' }}>*</span></label>
+              <input type="text" placeholder="e.g. MBA" value={code} onChange={e => setCode(e.target.value)} style={{
+                width: '100%', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+              }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
               />
             </div>
             <div>
-              <label style={labelStyle}>Batch Year</label>
-              <input type="number" value={batchYear} onChange={e => setBatchYear(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)' }}
-                onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Batch Year</label>
+              <input type="number" value={batchYear} onChange={e => setBatchYear(e.target.value)} style={{
+                width: '100%', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+              }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
               />
             </div>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14 }}>
             <div>
-              <label style={labelStyle}>Type</label>
-              <select value={type} onChange={e => setType(e.target.value as ProgrammeType)} style={{ ...inputStyle, cursor: 'pointer', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center', paddingRight: '28px' }}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Type</label>
+              <select value={type} onChange={e => setType(e.target.value as ProgrammeType)} style={{
+                width: '100%', padding: '10px 14px', fontSize: 13, color: 'var(--text-primary)',
+                background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                cursor: 'pointer', appearance: 'none', WebkitAppearance: 'none', fontFamily: 'var(--font-sans)',
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center', paddingRight: '28px',
+              }}>
                 <option value="UG">UG</option><option value="PG">PG</option><option value="Diploma">Diploma</option><option value="Certificate">Certificate</option>
               </select>
             </div>
             <div>
-              <label style={labelStyle}>Semesters</label>
-              <input type="number" value={semesters} onChange={e => setSemesters(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)' }}
-                onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Semesters</label>
+              <input type="number" value={semesters} onChange={e => setSemesters(e.target.value)} style={{
+                width: '100%', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+              }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
               />
             </div>
             <div>
-              <label style={labelStyle}>Total Credits</label>
-              <input type="number" value={credits} onChange={e => setCredits(e.target.value)} style={{ ...inputStyle, fontFamily: 'var(--font-mono)' }}
-                onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Total Credits</label>
+              <input type="number" value={credits} onChange={e => setCredits(e.target.value)} style={{
+                width: '100%', padding: '10px 14px', fontSize: 14, fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                background: 'var(--bg-section)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+              }}
+                onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
               />
             </div>
           </div>
           {code && (
-            <div style={{ padding: '14px 16px', background: 'var(--bg-section)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
+            <div style={{ padding: '14px 16px', background: 'var(--bg-section)', borderRadius: 8, border: '1px solid var(--border-subtle)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontSize: 15, fontWeight: 800, color: getProgrammeTypeColor(type), fontFamily: 'var(--font-mono)' }}>{shortLabel}</span>
                 <TypeBadge type={type} />
@@ -266,13 +298,14 @@ function CreateProgrammeModal({ onClose, onCreate }: { onClose: () => void; onCr
           )}
         </div>
 
-        <div style={{ padding: '16px 28px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-          <button onClick={onClose} style={{ padding: '9px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+        <div style={{ padding: '16px 28px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 8, background: '#FAFAFA' }}>
+          <button onClick={onClose} style={{ padding: '9px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
           <button onClick={handleCreate} disabled={!canCreate} style={{
             padding: '9px 24px', fontSize: 13, fontWeight: 700, color: '#fff',
-            background: canCreate ? 'var(--blue-700)' : 'var(--border-subtle)',
-            border: 'none', borderRadius: 'var(--radius-sm)',
+            background: canCreate ? '#072FB5' : 'var(--neutral-200)',
+            border: 'none', borderRadius: 8,
             cursor: canCreate ? 'pointer' : 'not-allowed', fontFamily: 'var(--font-sans)',
+            boxShadow: canCreate ? '0 2px 8px rgba(7,47,181,0.3)' : 'none',
           }}>Create Programme</button>
         </div>
       </div>
@@ -744,10 +777,10 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
     <>
       {/* Programme heading */}
       <div style={{ marginBottom: 16 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em', margin: 0, lineHeight: 1.2 }}>
+        <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em', margin: 0, lineHeight: 1.2 }}>
           {programme.name}
         </h1>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 8, fontSize: 13, color: 'var(--text-tertiary)', fontWeight: 500 }}>
           <TypeBadge type={programme.type} />
           <span>{programme.totalCredits} credits</span>
           <span style={{ margin: '0 2px' }}>&middot;</span>
@@ -763,7 +796,7 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
           const isActive = sectionTab === tab.key;
           return (
             <button key={tab.key} onClick={() => setSectionTab(tab.key)} style={{
-              padding: '10px 20px', fontSize: 13, fontWeight: isActive ? 700 : 500,
+              padding: '12px 22px', fontSize: 14, fontWeight: isActive ? 700 : 500,
               color: isActive ? 'var(--text-primary)' : 'var(--text-tertiary)',
               background: 'transparent', border: 'none',
               borderBottom: isActive ? `2px solid var(--text-primary)` : '2px solid transparent',
@@ -795,7 +828,7 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
               return (
                 <button key={sem.id} onClick={() => setActiveSemId(sem.id)} style={{
                   display: 'flex', alignItems: 'center', gap: 5,
-                  padding: '6px 14px', fontSize: 12, fontWeight: isActive ? 700 : 500,
+                  padding: '8px 16px', fontSize: 13, fontWeight: isActive ? 700 : 500,
                   color: isActive ? programme.color : isDone ? '#059669' : 'var(--text-secondary)',
                   background: isActive ? programme.color + '0A' : 'transparent',
                   border: isActive ? `1.5px solid ${programme.color}25` : '1.5px solid transparent',
@@ -1059,16 +1092,16 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
                     ) : null}
 
                     {/* Code + credits */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4, paddingLeft: reorderMode ? 18 : 0 }}>
-                      <span style={{ fontSize: 10.5, fontWeight: 700, color: programme.color, fontFamily: 'var(--font-mono)' }}>{course.code}</span>
-                      <span style={{ fontSize: 10.5, color: 'var(--text-tertiary)', fontWeight: 500 }}>{course.credits} credits</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, paddingLeft: reorderMode ? 18 : 0 }}>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: programme.color, fontFamily: 'var(--font-mono)' }}>{course.code}</span>
+                      <span style={{ fontSize: 13, color: 'var(--text-tertiary)', fontWeight: 500 }}>{course.credits} credits</span>
                     </div>
 
                     {/* Title */}
                     <div style={{
-                      fontSize: 13.5, fontWeight: 700, color: isHidden ? 'var(--text-tertiary)' : 'var(--text-primary)',
-                      fontFamily: 'var(--font-display)', letterSpacing: '-0.02em',
-                      lineHeight: 1.3, marginBottom: 6,
+                      fontSize: 19, fontWeight: 800, color: isHidden ? 'var(--text-tertiary)' : 'var(--text-primary)',
+                      fontFamily: 'var(--font-display)', letterSpacing: '-0.03em',
+                      lineHeight: 1.25, marginBottom: 10,
                       overflow: 'hidden', display: '-webkit-box',
                       WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
                       paddingLeft: reorderMode ? 18 : 0,
@@ -1077,13 +1110,13 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
                     </div>
 
                     {/* Dates + lock condition */}
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10, fontSize: 10, color: 'var(--text-tertiary)', fontWeight: 500 }}>
-                      <CalendarRange size={10} strokeWidth={1.6} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 14, fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>
+                      <CalendarRange size={12} strokeWidth={1.6} />
                       <span>{dates.start} &ndash; {dates.end}</span>
                       {lockCond && (
                         <>
                           <span style={{ margin: '0 2px' }}>&middot;</span>
-                          <Lock size={9} strokeWidth={2} style={{ color: '#DC2626' }} />
+                          <Lock size={10} strokeWidth={2} style={{ color: '#DC2626' }} />
                           <span style={{ color: '#DC2626', fontWeight: 600 }}>{lockCond.label}</span>
                         </>
                       )}
@@ -1095,17 +1128,16 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
                       )}
                     </div>
 
-                    {/* Quadrant stats row */}
-                    <div style={{ display: 'flex', gap: 4 }}>
+                    {/* Quadrant stats tiles */}
+                    <div style={{ display: 'flex', gap: 5 }}>
                       {quadrants.map(q => (
                         <div key={q.label} style={{
-                          flex: 1, padding: '6px 0', textAlign: 'center',
-                          background: 'var(--bg-section)', borderRadius: 4,
-                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2,
+                          flex: 1, textAlign: 'center', padding: '7px 4px',
+                          background: 'var(--bg-section)', borderRadius: 6,
                         }}>
-                          <q.icon size={12} strokeWidth={1.6} style={{ color: 'var(--text-tertiary)' }} />
-                          <div style={{ fontSize: 13, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>{q.count}</div>
-                          <div style={{ fontSize: 8.5, fontWeight: 600, color: 'var(--text-tertiary)', lineHeight: 1 }}>{q.label}</div>
+                          <q.icon size={13} strokeWidth={1.5} style={{ color: 'var(--text-tertiary)', display: 'block', margin: '0 auto 3px' }} />
+                          <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>{q.count}</div>
+                          <div style={{ fontSize: 8, fontWeight: 600, color: 'var(--text-tertiary)', marginTop: 2, whiteSpace: 'nowrap' }}>{q.label}</div>
                         </div>
                       ))}
                     </div>
@@ -1354,64 +1386,74 @@ function ProgrammeDetail({ programme, searchQuery, onSelectCourse }: {
 
       {/* Add course modal */}
       {showAddCourse && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }} onClick={() => setShowAddCourse(false)}>
-          <div onClick={e => e.stopPropagation()} style={{ width: 420, background: '#fff', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 64px rgba(0,0,0,0.20)', overflow: 'hidden' }}>
-            <div style={{ padding: '20px 24px 16px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'space-between' }}>
-              <div>
-                <h3 style={{ margin: 0, fontSize: 17, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Add Course</h3>
-                <p style={{ margin: '3px 0 0', fontSize: 12, color: 'var(--text-tertiary)', fontWeight: 500 }}>Add a new course to {activeSem?.label}</p>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)' }} onClick={() => setShowAddCourse(false)}>
+          <div onClick={e => e.stopPropagation()} style={{ width: 480, background: '#fff', borderRadius: 16, boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+            {/* Dark gradient header */}
+            <div style={{ padding: '24px 28px 22px', background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)' }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)', display: 'grid', placeItems: 'center' }}>
+                    <BookOpen size={22} strokeWidth={1.8} style={{ color: '#fff' }} />
+                  </div>
+                  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em' }}>Add Course</h3>
+                </div>
+                <button onClick={() => setShowAddCourse(false)} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: 'none', cursor: 'pointer', display: 'grid', placeItems: 'center', color: 'rgba(255,255,255,0.5)' }}><X size={16} /></button>
               </div>
-              <button onClick={() => setShowAddCourse(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 2, display: 'flex' }}><X size={18} /></button>
-            </div>
-
-            <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div>
-                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6 }}>Course Name <span style={{ color: '#DC2626' }}>*</span></label>
+              {/* Hero name input */}
+              <div style={{ marginTop: 18 }}>
+                <label style={{ display: 'block', fontSize: 10, fontWeight: 700, color: 'rgba(255,255,255,0.7)', marginBottom: 6, letterSpacing: '0.06em', textTransform: 'uppercase' }}>Course Name</label>
                 <input type="text" placeholder="e.g. Managerial Economics" value={newCourseName} onChange={e => setNewCourseName(e.target.value)} style={{
-                  width: '100%', padding: '10px 14px', fontSize: 13.5,
-                  fontFamily: 'var(--font-sans)', fontWeight: 500, color: 'var(--text-primary)',
-                  background: '#fff', border: '1px solid var(--border-subtle)',
-                  borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box',
+                  width: '100%', padding: '12px 16px', fontSize: 15, fontWeight: 600,
+                  fontFamily: 'var(--font-display)', color: '#fff',
+                  background: 'rgba(255,255,255,0.08)', border: '1.5px solid rgba(255,255,255,0.55)',
+                  borderRadius: 10, outline: 'none', boxSizing: 'border-box',
+                  letterSpacing: '-0.01em', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
                 }}
-                  onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; e.currentTarget.style.boxShadow = 'var(--shadow-focus-blue)'; }}
-                  onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; e.currentTarget.style.boxShadow = 'none'; }}
+                  onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.7)'; e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.08)'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.55)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.boxShadow = 'none'; }}
                 />
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6 }}>Course Code <span style={{ color: '#DC2626' }}>*</span></label>
-                  <input type="text" placeholder="e.g. MBA-107" value={newCourseCode} onChange={e => setNewCourseCode(e.target.value)} style={{
-                    width: '100%', padding: '10px 14px', fontSize: 13.5,
-                    fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
-                    background: '#fff', border: '1px solid var(--border-subtle)',
-                    borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box',
-                  }}
-                    onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                    onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
-                  />
-                </div>
-                <div>
-                  <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: 'var(--text-secondary)', marginBottom: 6 }}>Credits</label>
-                  <input type="number" value={newCourseCredits} onChange={e => setNewCourseCredits(e.target.value)} style={{
-                    width: '100%', padding: '10px 14px', fontSize: 13.5,
-                    fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
-                    background: '#fff', border: '1px solid var(--border-subtle)',
-                    borderRadius: 'var(--radius-sm)', outline: 'none', boxSizing: 'border-box',
-                  }}
-                    onFocus={e => { e.currentTarget.style.borderColor = 'var(--blue-700)'; }}
-                    onBlur={e => { e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
-                  />
-                </div>
+            </div>
+
+            {/* Body */}
+            <div style={{ padding: '22px 28px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Course Code <span style={{ color: '#072FB5' }}>*</span></label>
+                <input type="text" placeholder="e.g. MBA-107" value={newCourseCode} onChange={e => setNewCourseCode(e.target.value)} style={{
+                  width: '100%', padding: '10px 14px', fontSize: 14,
+                  fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                  background: 'var(--bg-section)', border: '1.5px solid transparent',
+                  borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                  transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+                }}
+                  onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
+                />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>Credits</label>
+                <input type="number" value={newCourseCredits} onChange={e => setNewCourseCredits(e.target.value)} style={{
+                  width: '100%', padding: '10px 14px', fontSize: 14,
+                  fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--text-primary)',
+                  background: 'var(--bg-section)', border: '1.5px solid transparent',
+                  borderRadius: 8, outline: 'none', boxSizing: 'border-box',
+                  transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s',
+                }}
+                  onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
+                />
               </div>
             </div>
 
-            <div style={{ padding: '14px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 10 }}>
-              <button onClick={() => setShowAddCourse(false)} style={{ padding: '8px 18px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+            {/* Footer */}
+            <div style={{ padding: '16px 28px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 8, background: '#FAFAFA' }}>
+              <button onClick={() => setShowAddCourse(false)} style={{ padding: '9px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
               <button onClick={handleAddCourse} disabled={!newCourseName || !newCourseCode} style={{
-                padding: '8px 22px', fontSize: 13, fontWeight: 700, color: '#fff',
-                background: newCourseName && newCourseCode ? 'var(--blue-700)' : 'var(--border-subtle)',
-                border: 'none', borderRadius: 'var(--radius-sm)',
+                padding: '9px 24px', fontSize: 13, fontWeight: 700, color: '#fff',
+                background: newCourseName && newCourseCode ? '#072FB5' : 'var(--neutral-200)',
+                border: 'none', borderRadius: 8,
                 cursor: newCourseName && newCourseCode ? 'pointer' : 'not-allowed', fontFamily: 'var(--font-sans)',
+                boxShadow: newCourseName && newCourseCode ? '0 2px 8px rgba(7,47,181,0.3)' : 'none',
               }}>Add Course</button>
             </div>
           </div>
@@ -1460,10 +1502,10 @@ export default function CoursesView() {
       <Breadcrumb items={breadcrumbItems} />
       {!selectedProgramme && (
         <div style={{ marginBottom: 16 }}>
-          <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em', margin: 0, lineHeight: 1.2 }}>
+          <h1 style={{ fontSize: 26, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.03em', margin: 0, lineHeight: 1.2 }}>
             Programmes & Batches
           </h1>
-          <p style={{ fontSize: 13, color: 'var(--text-tertiary)', margin: '4px 0 0', fontWeight: 500 }}>
+          <p style={{ fontSize: 14, color: 'var(--text-tertiary)', margin: '6px 0 0', fontWeight: 500 }}>
             {programmes.length} programmes &middot; {programmes.filter(p => p.status === 'active').length} active
           </p>
         </div>

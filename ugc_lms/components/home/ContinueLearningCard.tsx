@@ -1,6 +1,6 @@
 'use client';
 import { COURSES } from '@/lib/mockData';
-import { MonitorPlay, BookOpenText, MessageSquare, ClipboardCheck, ArrowRight } from 'lucide-react';
+import { Video, MonitorPlay, BookOpenText, MessageSquare, ClipboardCheck, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ContinueLearningCard({ firstTime }: { firstTime?: boolean } = {}) {
@@ -13,8 +13,8 @@ export default function ContinueLearningCard({ firstTime }: { firstTime?: boolea
       position: 'relative',
       overflow: 'hidden',
       borderRadius: 'var(--radius-md)',
-      background: 'linear-gradient(135deg, #EEF4FF 0%, var(--orange-100) 100%)',
-      border: '1px solid var(--border-subtle)',
+      background: 'linear-gradient(135deg, #C8DAFF 0%, #EDDCC0 100%)',
+      border: '2px solid rgba(15,15,15,0.45)',
       boxShadow: 'var(--shadow-sm)',
       transition: 'box-shadow 0.12s ease',
     }}
@@ -33,20 +33,24 @@ export default function ContinueLearningCard({ firstTime }: { firstTime?: boolea
           {course.title}
         </h2>
 
-        {/* Activity stats */}
-        <div style={{ display: 'flex', gap: 20, marginBottom: 16 }}>
+        {/* Activity stats — compact tiles */}
+        <div style={{ display: 'flex', gap: 6, marginBottom: 16, maxWidth: 420 }}>
           {[
+            { Icon: Video,           done: 1,                                    total: 2,                                    label: 'Live' },
             { Icon: MonitorPlay,     done: course.activities.videos.done,       total: course.activities.videos.total,       label: 'E-Tutorial' },
             { Icon: BookOpenText,    done: course.activities.pages.done,        total: course.activities.pages.total,        label: 'E-Content' },
             { Icon: MessageSquare,   done: course.activities.discussions.done,  total: course.activities.discussions.total,  label: 'Discussion' },
             { Icon: ClipboardCheck,  done: course.activities.quizzes.done,      total: course.activities.quizzes.total,      label: 'Assessment' },
           ].map(({ Icon, done, total, label }) => (
-            <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-              <Icon size={14} strokeWidth={1.8} color="var(--text-tertiary)" />
-              <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: '-0.03em', color: 'var(--text-primary)', fontFamily: 'var(--font-display)', lineHeight: 1 }}>
-                {done}<span style={{ fontSize: 11, fontWeight: 500, color: 'var(--text-tertiary)' }}>/{total}</span>
-              </span>
-              <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-tertiary)' }}>{label}</span>
+            <div key={label} style={{
+              flex: 1, textAlign: 'center', padding: '6px 2px',
+              background: 'rgba(255,255,255,0.55)', borderRadius: 6,
+            }}>
+              <Icon size={16} strokeWidth={1.5} style={{ color: 'var(--text-tertiary)', display: 'block', margin: '0 auto 2px' }} />
+              <div style={{ fontSize: 14, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1, letterSpacing: '-0.02em' }}>
+                {done}<span style={{ fontSize: 9, fontWeight: 500, color: 'var(--text-tertiary)' }}>/{total}</span>
+              </div>
+              <div style={{ fontSize: 8, fontWeight: 600, color: 'var(--text-tertiary)', marginTop: 2, whiteSpace: 'nowrap' }}>{label}</div>
             </div>
           ))}
         </div>

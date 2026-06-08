@@ -168,41 +168,101 @@ export default function AnnouncementsView() {
 
       {/* ═══ CREATE MODAL ═══ */}
       {showCreateModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.4)' }} onClick={() => setShowCreateModal(false)}>
-          <div style={{ background: '#fff', borderRadius: 'var(--radius-md)', width: 520, maxHeight: '80vh', overflow: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
-            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ fontSize: 16, fontWeight: 800, fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>New Announcement</div>
-              <button onClick={() => setShowCreateModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 4, display: 'flex' }}><X size={18} /></button>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} onClick={() => setShowCreateModal(false)}>
+          <div style={{ background: '#fff', borderRadius: 16, width: 520, maxHeight: '80vh', overflow: 'auto', boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)' }} onClick={e => e.stopPropagation()}>
+            {/* Dark gradient header */}
+            <div style={{ background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)', borderRadius: '16px 16px 0 0', padding: '24px 24px 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                    <Megaphone size={20} style={{ color: '#fff' }} />
+                  </div>
+                  <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Create Announcement</span>
+                </div>
+                <button onClick={() => setShowCreateModal(false)} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', display: 'grid', placeItems: 'center', color: '#fff', flexShrink: 0 }}><X size={16} /></button>
+              </div>
+              {/* Hero title input in header */}
+              <input
+                type="text"
+                value={newAnn.title}
+                onChange={e => setNewAnn({ ...newAnn, title: e.target.value })}
+                placeholder="Announcement title"
+                style={{
+                  width: '100%', padding: '10px 14px', fontSize: 14, fontWeight: 600,
+                  background: 'transparent', border: '1.5px solid rgba(255,255,255,0.25)', borderRadius: 10,
+                  fontFamily: 'var(--font-sans)', outline: 'none', color: '#fff',
+                  boxSizing: 'border-box',
+                }}
+                onFocus={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.5)'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255,255,255,0.08)'; }}
+                onBlur={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.boxShadow = 'none'; }}
+              />
             </div>
 
+            {/* Body inputs */}
             <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Title</label>
-                <input type="text" value={newAnn.title} onChange={e => setNewAnn({ ...newAnn, title: e.target.value })} placeholder="Announcement title" style={{ width: '100%', padding: '8px 12px', fontSize: 13, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none' }} />
-              </div>
-              <div>
                 <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Message</label>
-                <textarea value={newAnn.body} onChange={e => setNewAnn({ ...newAnn, body: e.target.value })} placeholder="Write your announcement..." rows={5} style={{ width: '100%', padding: '8px 12px', fontSize: 13, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none', resize: 'vertical', lineHeight: 1.6 }} />
+                <textarea
+                  value={newAnn.body}
+                  onChange={e => setNewAnn({ ...newAnn, body: e.target.value })}
+                  placeholder="Write your announcement..."
+                  rows={5}
+                  style={{
+                    width: '100%', padding: '10px 14px', fontSize: 13,
+                    border: '1.5px solid transparent', borderRadius: 10,
+                    fontFamily: 'var(--font-sans)', outline: 'none', resize: 'vertical', lineHeight: 1.6,
+                    background: 'var(--bg-section)', color: 'var(--text-primary)', boxSizing: 'border-box',
+                  }}
+                  onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                  onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
+                />
               </div>
               <div style={{ display: 'flex', gap: 12 }}>
                 <div style={{ flex: 1 }}>
                   <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Programme</label>
-                  <select value={newAnn.programme} onChange={e => setNewAnn({ ...newAnn, programme: e.target.value })} style={{ width: '100%', padding: '8px 28px 8px 12px', fontSize: 12.5, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none', background: '#fff', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center' }}>
+                  <select
+                    value={newAnn.programme}
+                    onChange={e => setNewAnn({ ...newAnn, programme: e.target.value })}
+                    style={{
+                      width: '100%', padding: '10px 28px 10px 14px', fontSize: 12.5,
+                      border: '1.5px solid transparent', borderRadius: 10,
+                      fontFamily: 'var(--font-sans)', outline: 'none',
+                      background: 'var(--bg-section)', color: 'var(--text-primary)',
+                      appearance: 'none', WebkitAppearance: 'none',
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center',
+                      boxSizing: 'border-box',
+                    }}
+                    onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }}
+                    onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }}
+                  >
                     {PROGRAMME_OPTIONS.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
                   </select>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: 2 }}>
                   <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 500, color: 'var(--text-secondary)', cursor: 'pointer' }}>
-                    <input type="checkbox" checked={newAnn.pinned} onChange={e => setNewAnn({ ...newAnn, pinned: e.target.checked })} style={{ accentColor: 'var(--blue-700)' }} />
+                    <input type="checkbox" checked={newAnn.pinned} onChange={e => setNewAnn({ ...newAnn, pinned: e.target.checked })} style={{ accentColor: '#072FB5' }} />
                     Pin to top
                   </label>
                 </div>
               </div>
             </div>
 
-            <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
-              <button onClick={handleCreate} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: '#fff', background: 'var(--blue-700)', border: '1px solid var(--blue-700)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Publish</button>
+            {/* Footer */}
+            <div style={{ padding: '16px 24px', background: '#FAFAFA', borderRadius: '0 0 16px 16px', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+              <button
+                onClick={handleCreate}
+                disabled={!newAnn.title.trim()}
+                style={{
+                  padding: '8px 20px', fontSize: 13, fontWeight: 600, color: '#fff',
+                  background: newAnn.title.trim() ? '#072FB5' : 'var(--neutral-200)',
+                  border: 'none', borderRadius: 8, cursor: newAnn.title.trim() ? 'pointer' : 'not-allowed',
+                  fontFamily: 'var(--font-sans)',
+                  boxShadow: newAnn.title.trim() ? '0 1px 3px rgba(7,47,181,0.3)' : 'none',
+                  transition: 'background 0.15s, box-shadow 0.15s',
+                }}
+              >Publish</button>
             </div>
           </div>
         </div>

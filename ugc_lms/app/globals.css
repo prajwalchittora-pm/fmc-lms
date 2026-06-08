@@ -72,6 +72,7 @@
 
   /* Semantic backgrounds */
   --bg-white: #FFFFFF;
+  --bg-page: #FDF8F2;
   --bg-section: #F8F5F1;
   --bg-cta: var(--blue-700);
   --bg-dark-surface: linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%);

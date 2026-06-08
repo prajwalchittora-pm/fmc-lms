@@ -11,6 +11,7 @@ import ContinueWatching from '@/components/home/ContinueWatching';
 import ContinueReading from '@/components/home/ContinueReading';
 import ActiveDiscussions from '@/components/home/ActiveDiscussions';
 import UpcomingActivities from '@/components/home/UpcomingActivities';
+import RecentAnnouncements from '@/components/home/RecentAnnouncements';
 
 export default function HomeScreen() {
   const { scenario } = usePrototype();
@@ -67,9 +68,17 @@ export default function HomeScreen() {
         </div>
       </div>
 
-      {/* Courses for selected semester — hidden for now */}
-      {/* <EnrolledCourses semesterId={selectedSemester} /> */}
-      <UpcomingActivities />
+      {/* Upcoming + Announcements side by side */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', gap: 0, marginBottom: 36, alignItems: 'start' }}>
+        <div style={{ paddingRight: 24 }}>
+          <UpcomingActivities />
+        </div>
+        <div style={{ width: 1, background: 'var(--border-subtle)', alignSelf: 'stretch', marginTop: 8 }} />
+        <div style={{ paddingLeft: 24 }}>
+          <RecentAnnouncements />
+        </div>
+      </div>
+
       <ContinueWatching firstTime={isFirstVisit} />
       <ContinueReading firstTime={isFirstVisit} />
       <ActiveDiscussions />

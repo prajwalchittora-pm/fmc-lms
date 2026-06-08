@@ -25,9 +25,9 @@ export default function HomePage() {
   }
 
   return (
-    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#FBF4EA' }}>
+    <div style={{ display: 'flex', height: '100vh', overflow: 'hidden', background: '#FDF8F2' }}>
       <SideNav />
-      <main style={{ flex: 1, height: '100vh', overflow: 'auto', background: '#F8F5F1' }}>
+      <main style={{ flex: 1, height: '100vh', overflow: 'auto', background: '#FDF8F2' }}>
         <HomeScreen />
       </main>
     </div>

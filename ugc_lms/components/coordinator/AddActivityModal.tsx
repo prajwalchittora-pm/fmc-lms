@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { X, Video, FileText, FileDown, HelpCircle, ClipboardList, MessageSquare, MonitorPlay, Upload, ChevronRight, ArrowLeft } from 'lucide-react';
+import { X, Video, FileText, FileDown, HelpCircle, ClipboardList, MessageSquare, MonitorPlay, Upload, ChevronRight, ArrowLeft, Package } from 'lucide-react';
 import { ACTIVITY_TYPE_OPTIONS, EditorActivityType } from '@/lib/coordinatorData';
 
 type QuadrantType = 'live_session' | 'e_tutorial' | 'e_content' | 'discussion' | 'assessment';
@@ -13,13 +13,14 @@ const TYPE_ICONS: Record<EditorActivityType, React.ElementType> = {
   assignment: ClipboardList,
   forum_topic: MessageSquare,
   live_session: Video,
+  scorm: Package,
 };
 
 // Which activity types belong to which quadrant
 const QUADRANT_TYPES: Record<QuadrantType, EditorActivityType[]> = {
   live_session: ['live_session'],
   e_tutorial: ['video'],
-  e_content: ['page', 'pdf'],
+  e_content: ['page', 'pdf', 'scorm'],
   discussion: ['forum_topic'],
   assessment: ['quiz', 'assignment'],
 };
@@ -28,6 +29,7 @@ interface Props {
   quadrantType: QuadrantType;
   onClose: () => void;
   onSubmit: (activity: { title: string; type: string; duration: string }) => void;
+  onTypeSelected?: (type: EditorActivityType) => void;
 }
 
 interface FieldDef {
@@ -86,14 +88,30 @@ function getFieldsForType(type: EditorActivityType): FieldDef[] {
         { key: 'date', label: 'Date & Time', type: 'date', required: true },
         { key: 'duration', label: 'Duration', type: 'select', options: [{ value: '30', label: '30 minutes' }, { value: '60', label: '1 hour' }, { value: '90', label: '1.5 hours' }, { value: '120', label: '2 hours' }], defaultValue: '60' },
       ];
+    case 'scorm':
+      return [
+        { key: 'title', label: 'Title', type: 'text', placeholder: 'e.g. Interactive Module 1', required: true },
+        { key: 'file', label: 'Upload SCORM Package', type: 'file', helpText: '.zip file containing SCORM 1.2 or 2004 package' },
+      ];
     default:
       return [{ key: 'title', label: 'Title', type: 'text', required: true }];
   }
 }
 
-export default function AddActivityModal({ quadrantType, onClose, onSubmit }: Props) {
+// Types that have full settings defined in ActivitySettingsModal
+const FULL_SETTINGS_TYPES: EditorActivityType[] = ['live_session', 'video', 'assignment', 'page', 'pdf', 'scorm', 'quiz', 'forum_topic'];
+
+export default function AddActivityModal({ quadrantType, onClose, onSubmit, onTypeSelected }: Props) {
   const availableTypes = QUADRANT_TYPES[quadrantType] || [];
-  const [selectedType, setSelectedType] = useState<EditorActivityType | null>(availableTypes.length === 1 ? availableTypes[0] : null);
+
+  // If only one type and it has full settings, go straight to settings modal
+  const singleType = availableTypes.length === 1 ? availableTypes[0] : null;
+  if (singleType && FULL_SETTINGS_TYPES.includes(singleType) && onTypeSelected) {
+    onTypeSelected(singleType);
+    return null;
+  }
+
+  const [selectedType, setSelectedType] = useState<EditorActivityType | null>(singleType && !FULL_SETTINGS_TYPES.includes(singleType) ? singleType : null);
   const [formData, setFormData] = useState<Record<string, string>>({});
 
   const handleSubmit = () => {
@@ -173,7 +191,13 @@ export default function AddActivityModal({ quadrantType, onClose, onSubmit }: Pr
                 return (
                   <button
                     key={type}
-                    onClick={() => setSelectedType(type)}
+                    onClick={() => {
+                      if (FULL_SETTINGS_TYPES.includes(type) && onTypeSelected) {
+                        onTypeSelected(type);
+                      } else {
+                        setSelectedType(type);
+                      }
+                    }}
                     style={{
                       display: 'flex', alignItems: 'center', gap: 14,
                       padding: '14px 16px',

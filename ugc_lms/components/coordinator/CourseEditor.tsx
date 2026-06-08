@@ -4,8 +4,11 @@ import { ChevronLeft, ChevronDown, ChevronRight, Video, HelpCircle, FileText, Fi
 import VideoActivity from '@/components/learn/VideoActivity';
 import PageActivity from '@/components/learn/PageActivity';
 import QuizActivity from '@/components/learn/QuizActivity';
+import QuizEditor from './QuizEditor';
 import PdfActivity from '@/components/learn/PdfActivity';
 import AddActivityModal from './AddActivityModal';
+import ActivitySettingsModal from './ActivitySettingsModal';
+import { EditorActivityType } from '@/lib/coordinatorData';
 
 // ─── Reuse the learner's data structures ─────────────────────────────────────
 
@@ -63,7 +66,7 @@ const INITIAL_UNITS: Unit[] = [
   ]},
 ];
 
-function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityId, onSelectActivity, onAddActivity, onDeleteActivity, onAddUnit, onRenameUnit, selectMode, selectedActIds, hiddenActivities, lockedActivities, toggleActivityHidden, toggleActivityLocked }: {
+function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityId, onSelectActivity, onAddActivity, onDeleteActivity, onEditActivity, onAddUnit, onRenameUnit, selectMode, selectedActIds, hiddenActivities, lockedActivities, toggleActivityHidden, toggleActivityLocked }: {
   units: Unit[];
   editMode: boolean;
   searchQuery: string;
@@ -71,6 +74,7 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
   onSelectActivity: (id: string) => void;
   onAddActivity: (unitId: string, quadrantType: QuadrantType) => void;
   onDeleteActivity: (activityId: string) => void;
+  onEditActivity: (activity: UnitActivity) => void;
   onAddUnit: () => void;
   onRenameUnit: (unitId: string, name: string) => void;
   selectMode?: boolean;
@@ -138,15 +142,15 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
             {/* Unit header */}
             <div
               onClick={() => { if (!isEditing) toggleUnit(unit.id); }}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '12px 14px', cursor: isEditing ? 'default' : 'pointer', background: isExpanded ? 'var(--bg-section)' : 'transparent', transition: 'background 0.1s' }}
+              style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', cursor: isEditing ? 'default' : 'pointer', background: isExpanded ? 'var(--bg-section)' : 'transparent', transition: 'background 0.1s' }}
               onMouseEnter={e => { if (!isExpanded && !isEditing) e.currentTarget.style.background = 'rgba(0,0,0,0.02)'; }}
               onMouseLeave={e => { if (!isEditing) e.currentTarget.style.background = isExpanded ? 'var(--bg-section)' : 'transparent'; }}
             >
               {editMode && (
-                <GripVertical size={12} style={{ color: 'var(--text-tertiary)', flexShrink: 0, cursor: 'grab' }} />
+                <GripVertical size={16} style={{ color: 'var(--text-tertiary)', flexShrink: 0, cursor: 'grab' }} />
               )}
-              <span style={{ fontSize: 13, fontWeight: 800, color: unitDone ? 'var(--green-600)' : isUnitLocked ? '#DC2626' : 'var(--text-primary)', fontFamily: 'var(--font-mono)', flexShrink: 0, width: 20 }}>
-                {isUnitLocked ? <Lock size={11} strokeWidth={2} /> : `${unit.number}.`}
+              <span style={{ fontSize: 15, fontWeight: 800, color: unitDone ? 'var(--green-600)' : isUnitLocked ? '#DC2626' : 'var(--text-primary)', fontFamily: 'var(--font-mono)', flexShrink: 0, width: 24 }}>
+                {isUnitLocked ? <Lock size={14} strokeWidth={2} /> : `${unit.number}.`}
               </span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 {isEditing ? (
@@ -157,40 +161,42 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
                     onBlur={saveUnitName}
                     onKeyDown={e => { if (e.key === 'Enter') saveUnitName(); if (e.key === 'Escape') setEditingUnitId(null); }}
                     onClick={e => e.stopPropagation()}
-                    style={{ fontSize: 12.5, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em', width: '100%', padding: '2px 6px', border: '1px solid var(--blue-700)', borderRadius: 'var(--radius-xs)', outline: 'none', background: '#fff', boxSizing: 'border-box' }}
+                    style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em', width: '100%', padding: '4px 8px', border: '1.5px solid var(--blue-700)', borderRadius: 'var(--radius-xs)', outline: 'none', background: '#fff', boxSizing: 'border-box' }}
                   />
                 ) : (
                   <>
-                    <div style={{ fontSize: 12.5, fontWeight: 700, color: isUnitHidden ? 'var(--text-tertiary)' : 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.01em', lineHeight: 1.3, textDecoration: isUnitHidden ? 'line-through' : 'none', textDecorationColor: 'var(--text-tertiary)' }}>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: isUnitHidden ? 'var(--text-tertiary)' : 'var(--text-primary)', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em', lineHeight: 1.35, textDecoration: isUnitHidden ? 'line-through' : 'none', textDecorationColor: 'var(--text-tertiary)' }}>
                       {unit.title}
                     </div>
-                    <div style={{ fontSize: 10, color: 'var(--text-tertiary)', fontWeight: 500, marginTop: 2, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      {unitDoneCount}/{unitActivityCount} completed
-                      {isUnitHidden && <span style={{ color: '#D97706', fontWeight: 600 }}>· Hidden</span>}
-                      {isUnitLocked && <span style={{ color: '#DC2626', fontWeight: 600 }}>· Locked</span>}
-                    </div>
+                    {(isUnitHidden || isUnitLocked) && (
+                      <div style={{ fontSize: 11, color: 'var(--text-tertiary)', fontWeight: 500, marginTop: 3, display: 'flex', alignItems: 'center', gap: 5 }}>
+                        {isUnitHidden && <span style={{ color: '#D97706', fontWeight: 600 }}>Hidden</span>}
+                        {isUnitHidden && isUnitLocked && <span>·</span>}
+                        {isUnitLocked && <span style={{ color: '#DC2626', fontWeight: 600 }}>Locked</span>}
+                      </div>
+                    )}
                   </>
                 )}
               </div>
               {/* Unit actions — edit mode */}
               {editMode && !isEditing && (
-                <div style={{ display: 'flex', gap: 1, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
-                  <button onClick={() => toggleUnitHidden(unit.id)} title={isUnitHidden ? 'Show' : 'Hide'} style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4, color: isUnitHidden ? '#D97706' : 'var(--text-tertiary)', opacity: isUnitHidden ? 0.8 : 0.3 }}
-                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = isUnitHidden ? '0.8' : '0.3'; e.currentTarget.style.background = 'transparent'; }}
-                  >{isUnitHidden ? <EyeOff size={12} strokeWidth={1.8} /> : <Eye size={12} strokeWidth={1.8} />}</button>
-                  <button onClick={() => toggleUnitLocked(unit.id)} title={isUnitLocked ? 'Unlock' : 'Lock'} style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4, color: isUnitLocked ? '#DC2626' : 'var(--text-tertiary)', opacity: isUnitLocked ? 0.8 : 0.3 }}
-                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = isUnitLocked ? '0.8' : '0.3'; e.currentTarget.style.background = 'transparent'; }}
-                  >{isUnitLocked ? <Lock size={11} strokeWidth={2} /> : <Unlock size={11} strokeWidth={1.8} />}</button>
-                  <button onClick={() => startEditingUnit(unit)} title="Rename unit" style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4, color: 'var(--text-tertiary)', opacity: 0.3 }}
-                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(7,47,181,0.06)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.opacity = '0.3'; e.currentTarget.style.background = 'transparent'; }}
-                  ><Pencil size={11} strokeWidth={2} style={{ color: 'var(--blue-700)' }} /></button>
+                <div style={{ display: 'flex', gap: 2, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
+                  <button onClick={() => toggleUnitHidden(unit.id)} title={isUnitHidden ? 'Show' : 'Hide'} style={{ width: 28, height: 28, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6, color: isUnitHidden ? '#D97706' : 'var(--text-tertiary)', opacity: isUnitHidden ? 1 : 0.6 }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = isUnitHidden ? '1' : '0.6'; e.currentTarget.style.background = 'transparent'; }}
+                  >{isUnitHidden ? <EyeOff size={14} strokeWidth={1.8} /> : <Eye size={14} strokeWidth={1.8} />}</button>
+                  <button onClick={() => toggleUnitLocked(unit.id)} title={isUnitLocked ? 'Unlock' : 'Lock'} style={{ width: 28, height: 28, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6, color: isUnitLocked ? '#DC2626' : 'var(--text-tertiary)', opacity: isUnitLocked ? 1 : 0.6 }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = isUnitLocked ? '1' : '0.6'; e.currentTarget.style.background = 'transparent'; }}
+                  >{isUnitLocked ? <Lock size={13} strokeWidth={2} /> : <Unlock size={13} strokeWidth={1.8} />}</button>
+                  <button onClick={() => startEditingUnit(unit)} title="Rename unit" style={{ width: 28, height: 28, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6, color: 'var(--text-tertiary)', opacity: 0.6 }}
+                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(7,47,181,0.08)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.opacity = '0.4'; e.currentTarget.style.background = 'transparent'; }}
+                  ><Pencil size={13} strokeWidth={2} style={{ color: 'var(--blue-700)' }} /></button>
                 </div>
               )}
-              {!editMode && unitDone && <CheckCircle2 size={14} style={{ color: 'var(--green-600)', flexShrink: 0 }} />}
-              {!isEditing && (isExpanded ? <ChevronDown size={13} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} /> : <ChevronRight size={13} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} />)}
+              {!editMode && unitDone && <CheckCircle2 size={16} style={{ color: 'var(--green-600)', flexShrink: 0 }} />}
+              {!isEditing && (isExpanded ? <ChevronDown size={15} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} /> : <ChevronRight size={15} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} />)}
             </div>
 
             {/* Quadrants */}
@@ -208,15 +214,15 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
                   {/* Quadrant header */}
                   <div
                     onClick={() => toggleQuadrant(qKey)}
-                    style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 14px 8px 44px', cursor: 'pointer', borderTop: '1px dashed var(--border-subtle)', transition: 'background 0.1s' }}
-                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.015)'; }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 16px 10px 44px', cursor: 'pointer', borderTop: '1px solid var(--border-subtle)', transition: 'background 0.1s' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.02)'; }}
                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
                   >
-                    <QIcon size={13} strokeWidth={1.8} style={{ color: meta.color, flexShrink: 0 }} />
-                    <span style={{ flex: 1, fontSize: 11.5, fontWeight: 600, color: 'var(--text-secondary)' }}>{meta.label}</span>
-                    {qDone && <CheckCircle2 size={11} style={{ color: 'var(--green-600)', flexShrink: 0 }} />}
-                    <span style={{ fontSize: 10, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>{matchActivities.filter(a => a.done).length}/{matchActivities.length}</span>
-                    {qExpanded ? <ChevronDown size={11} style={{ color: 'var(--text-tertiary)' }} /> : <ChevronRight size={11} style={{ color: 'var(--text-tertiary)' }} />}
+                    <QIcon size={17} strokeWidth={1.8} style={{ color: meta.color, flexShrink: 0 }} />
+                    <span style={{ flex: 1, fontSize: 14, fontWeight: 700, color: 'var(--text-secondary)' }}>{meta.label}</span>
+                    {qDone && <CheckCircle2 size={13} style={{ color: 'var(--green-600)', flexShrink: 0 }} />}
+                    <span style={{ fontSize: 11, color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', fontWeight: 600 }}>{matchActivities.filter(a => a.done).length}/{matchActivities.length}</span>
+                    {qExpanded ? <ChevronDown size={13} style={{ color: 'var(--text-tertiary)' }} /> : <ChevronRight size={13} style={{ color: 'var(--text-tertiary)' }} />}
                   </div>
 
                   {/* Activities */}
@@ -232,8 +238,8 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
                             <div
                               onClick={() => onSelectActivity(act.id)}
                               style={{
-                                display: 'flex', alignItems: 'center', gap: 8,
-                                padding: editMode ? '8px 14px 8px 52px' : '8px 14px 8px 62px',
+                                display: 'flex', alignItems: 'center', gap: 10,
+                                padding: editMode ? '10px 16px 10px 52px' : '10px 16px 10px 62px',
                                 cursor: 'pointer',
                                 background: isSelected ? 'var(--bg-pastel-beige-3)' : isCurrent ? 'var(--blue-50)' : 'transparent',
                                 borderLeft: isSelected ? '2px solid var(--orange-600)' : '2px solid transparent',
@@ -266,10 +272,10 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
                                 </div>
                               )}
                               <div style={{ flex: 1, minWidth: 0 }}>
-                                <div style={{ fontSize: 12, fontWeight: isCurrent ? 700 : 500, color: isCurrent ? 'var(--blue-700)' : act.done ? 'var(--text-secondary)' : 'var(--text-primary)', lineHeight: 1.3, textDecoration: isActHidden ? 'line-through' : 'none', textDecorationColor: 'var(--text-tertiary)' }}>
+                                <div style={{ fontSize: 14, fontWeight: isCurrent ? 700 : 500, color: isCurrent ? 'var(--blue-700)' : act.done ? 'var(--text-secondary)' : 'var(--text-primary)', lineHeight: 1.35, textDecoration: isActHidden ? 'line-through' : 'none', textDecorationColor: 'var(--text-tertiary)' }}>
                                   {act.title}
                                 </div>
-                                <div style={{ fontSize: 10, color: 'var(--text-tertiary)', marginTop: 1, display: 'flex', alignItems: 'center', gap: 4 }}>
+                                <div style={{ fontSize: 12, color: 'var(--text-tertiary)', marginTop: 3, display: 'flex', alignItems: 'center', gap: 5 }}>
                                   {act.duration}
                                   {isActHidden && <span style={{ color: '#D97706', fontWeight: 600 }}>Hidden</span>}
                                   {isActLocked && <span style={{ color: '#DC2626', fontWeight: 600 }}>Locked</span>}
@@ -277,38 +283,38 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
                               </div>
                               {/* Edit mode actions */}
                               {editMode && (
-                                <div style={{ display: 'flex', gap: 1, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
+                                <div style={{ display: 'flex', gap: 3, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
                                   <button onClick={() => toggleActivityHidden(act.id)}
-                                    style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4, color: isActHidden ? '#D97706' : 'var(--text-tertiary)', opacity: isActHidden ? 0.8 : 0.35 }}
+                                    style={{ width: 30, height: 30, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6, color: isActHidden ? '#D97706' : 'var(--text-tertiary)', opacity: isActHidden ? 1 : 0.6 }}
                                     title={isActHidden ? 'Show' : 'Hide'}
-                                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
-                                    onMouseLeave={e => { e.currentTarget.style.opacity = isActHidden ? '0.8' : '0.35'; e.currentTarget.style.background = 'transparent'; }}
+                                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.opacity = isActHidden ? '1' : '0.6'; e.currentTarget.style.background = 'transparent'; }}
                                   >
-                                    {isActHidden ? <EyeOff size={11} strokeWidth={1.8} /> : <Eye size={11} strokeWidth={1.8} />}
+                                    {isActHidden ? <EyeOff size={16} strokeWidth={1.8} /> : <Eye size={16} strokeWidth={1.8} />}
                                   </button>
                                   <button onClick={() => toggleActivityLocked(act.id)}
-                                    style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4, color: isActLocked ? '#DC2626' : 'var(--text-tertiary)', opacity: isActLocked ? 0.8 : 0.35 }}
+                                    style={{ width: 30, height: 30, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6, color: isActLocked ? '#DC2626' : 'var(--text-tertiary)', opacity: isActLocked ? 1 : 0.6 }}
                                     title={isActLocked ? 'Unlock' : 'Lock'}
-                                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.04)'; }}
-                                    onMouseLeave={e => { e.currentTarget.style.opacity = isActLocked ? '0.8' : '0.35'; e.currentTarget.style.background = 'transparent'; }}
+                                    onMouseEnter={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.background = 'rgba(0,0,0,0.05)'; }}
+                                    onMouseLeave={e => { e.currentTarget.style.opacity = isActLocked ? '1' : '0.6'; e.currentTarget.style.background = 'transparent'; }}
                                   >
-                                    {isActLocked ? <Lock size={10} strokeWidth={2} /> : <Unlock size={10} strokeWidth={1.8} />}
+                                    {isActLocked ? <Lock size={15} strokeWidth={2} /> : <Unlock size={15} strokeWidth={1.8} />}
                                   </button>
-                                  <button style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4 }}
+                                  <button onClick={() => onEditActivity(act)} style={{ width: 30, height: 30, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6 }}
                                     title="Edit activity settings"
                                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(7,47,181,0.08)'; }}
                                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
                                   >
-                                    <Pencil size={11} strokeWidth={2} style={{ color: 'var(--blue-700)' }} />
+                                    <Settings size={16} strokeWidth={2} style={{ color: 'var(--blue-700)' }} />
                                   </button>
                                   <button
                                     onClick={() => onDeleteActivity(act.id)}
-                                    style={{ width: 22, height: 22, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 4 }}
+                                    style={{ width: 30, height: 30, display: 'grid', placeItems: 'center', background: 'transparent', border: 'none', cursor: 'pointer', borderRadius: 6 }}
                                     title="Remove activity"
                                     onMouseEnter={e => { e.currentTarget.style.background = 'rgba(220,38,38,0.08)'; }}
                                     onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
                                   >
-                                    <Trash2 size={11} strokeWidth={2} style={{ color: '#DC2626' }} />
+                                    <Trash2 size={16} strokeWidth={2} style={{ color: '#DC2626' }} />
                                   </button>
                                 </div>
                               )}
@@ -417,9 +423,9 @@ function EditableUnitAccordion({ units, editMode, searchQuery, selectedActivityI
   );
 }
 
-const MIN_WIDTH = 200;
-const MAX_WIDTH = 520;
-const DEFAULT_WIDTH = 320;
+const MIN_WIDTH = 280;
+const MAX_WIDTH = 560;
+const DEFAULT_WIDTH = 380;
 
 export default function CourseEditor({ courseTitle, courseCode, onBack }: { courseTitle: string; courseCode: string; onBack: () => void }) {
   const [units, setUnits] = useState<Unit[]>(INITIAL_UNITS);
@@ -438,6 +444,8 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
   const [searchQuery, setSearchQuery] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
   const [addContext, setAddContext] = useState<{ unitId: string; quadrantType: QuadrantType } | null>(null);
+  const [settingsActivity, setSettingsActivity] = useState<UnitActivity | null>(null);
+  const [createActivityType, setCreateActivityType] = useState<EditorActivityType | null>(null);
 
   const isResizing = useRef(false);
   const startX = useRef(0);
@@ -556,9 +564,9 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
           </div>
 
           <div style={{
-            fontSize: 15, fontWeight: 700, color: 'var(--text-primary)',
+            fontSize: 19, fontWeight: 800, color: 'var(--text-primary)',
             fontFamily: 'var(--font-display)',
-            letterSpacing: '-0.02em', lineHeight: 1.3, marginBottom: 12,
+            letterSpacing: '-0.03em', lineHeight: 1.25, marginBottom: 14,
             overflow: 'hidden', display: '-webkit-box',
             WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
           }}>
@@ -566,7 +574,7 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
           </div>
 
           {/* Quadrant breakdown */}
-          <div style={{ display: 'flex', gap: 4, marginBottom: 10 }}>
+          <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
             {[
               { icon: Video, label: 'Live', count: units.reduce((s, u) => s + (u.quadrants.find(q => q.type === 'live_session')?.activities.length || 0), 0) },
               { icon: MonitorPlay, label: 'Tutorial', count: units.reduce((s, u) => s + (u.quadrants.find(q => q.type === 'e_tutorial')?.activities.length || 0), 0) },
@@ -574,10 +582,10 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
               { icon: MessageSquare, label: 'Forum', count: units.reduce((s, u) => s + (u.quadrants.find(q => q.type === 'discussion')?.activities.length || 0), 0) },
               { icon: ClipboardCheck, label: 'Assess', count: units.reduce((s, u) => s + (u.quadrants.find(q => q.type === 'assessment')?.activities.length || 0), 0) },
             ].map(q => (
-              <div key={q.label} style={{ flex: 1, textAlign: 'center', padding: '5px 0', background: 'rgba(0,0,0,0.02)', borderRadius: 4 }}>
-                <q.icon size={11} strokeWidth={1.6} style={{ color: 'var(--text-tertiary)', display: 'block', margin: '0 auto 2px' }} />
-                <div style={{ fontSize: 12, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>{q.count}</div>
-                <div style={{ fontSize: 8, fontWeight: 600, color: 'var(--text-tertiary)', marginTop: 1 }}>{q.label}</div>
+              <div key={q.label} style={{ flex: 1, textAlign: 'center', padding: '8px 0', background: 'rgba(0,0,0,0.025)', borderRadius: 6 }}>
+                <q.icon size={14} strokeWidth={1.6} style={{ color: 'var(--text-tertiary)', display: 'block', margin: '0 auto 3px' }} />
+                <div style={{ fontSize: 15, fontWeight: 800, color: 'var(--text-primary)', fontFamily: 'var(--font-mono)', lineHeight: 1 }}>{q.count}</div>
+                <div style={{ fontSize: 9, fontWeight: 600, color: 'var(--text-tertiary)', marginTop: 2 }}>{q.label}</div>
               </div>
             ))}
           </div>
@@ -675,6 +683,7 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
           onSelectActivity={(id) => { if (selectMode) toggleSelectAct(id); else setSelectedActivityId(id); }}
           onAddActivity={handleAddActivity}
           onDeleteActivity={handleDeleteActivity}
+          onEditActivity={act => setSettingsActivity(act)}
           onAddUnit={() => {
             const nextNum = units.length + 1;
             setUnits(prev => [...prev, { id: 'u-new-' + Date.now(), number: nextNum, title: `Unit ${nextNum}`, quadrants: [] }]);
@@ -734,16 +743,79 @@ export default function CourseEditor({ courseTitle, courseCode, onBack }: { cour
           {selectedActivity?.type === 'video' && <VideoActivity activity={selectedActivity as any} courseId="editor" {...activityProps} />}
           {selectedActivity?.type === 'page' && <PageActivity activity={selectedActivity as any} {...activityProps} />}
           {selectedActivity?.type === 'pdf' && <PdfActivity activity={selectedActivity as any} {...activityProps} />}
-          {selectedActivity?.type === 'quiz' && <QuizActivity activity={selectedActivity as any} {...activityProps} onQuizStart={() => {}} onQuizEnd={() => {}} />}
+          {selectedActivity?.type === 'quiz' && (
+            editMode
+              ? <QuizEditor quizTitle={selectedActivity.title} />
+              : <QuizActivity activity={selectedActivity as any} {...activityProps} onQuizStart={() => {}} onQuizEnd={() => {}} />
+          )}
         </div>
       </div>
 
-      {/* Add activity modal */}
-      {showAddModal && addContext && (
+      {/* Add activity modal — type picker, then either old form or new settings modal */}
+      {showAddModal && addContext && !createActivityType && (
         <AddActivityModal
           quadrantType={addContext.quadrantType}
           onClose={() => { setShowAddModal(false); setAddContext(null); }}
           onSubmit={handleActivityCreated}
+          onTypeSelected={(type) => {
+            setShowAddModal(false);
+            setCreateActivityType(type);
+          }}
+        />
+      )}
+
+      {/* Activity settings modal — for CREATING new activities with full settings */}
+      {createActivityType && addContext && (
+        <ActivitySettingsModal
+          activityType={createActivityType}
+          mode="create"
+          onClose={() => { setCreateActivityType(null); setAddContext(null); }}
+          onSubmit={(values) => {
+            const title = values.title || 'Untitled Activity';
+            const typeMap: Record<string, string> = { live_session: 'video', assignment: 'page', forum_topic: 'page', scorm: 'page' };
+            const activityType = typeMap[createActivityType] || createActivityType;
+            const dur = createActivityType === 'live_session'
+              ? `${parseInt(values.durationHours || '1')}${parseInt(values.durationMinutes || '0') > 0 ? `.${parseInt(values.durationMinutes) / 60 * 10}` : ''} hrs`
+              : '';
+            const newActivity: UnitActivity = { id: 'new-' + Date.now(), title, done: false, duration: dur || '—', type: activityType };
+            setUnits(prev => prev.map(u => {
+              if (u.id !== addContext.unitId) return u;
+              const hasQuadrant = u.quadrants.some(q => q.type === addContext.quadrantType);
+              if (hasQuadrant) {
+                return { ...u, quadrants: u.quadrants.map(q => q.type !== addContext.quadrantType ? q : { ...q, activities: [...q.activities, newActivity] }) };
+              }
+              return { ...u, quadrants: [...u.quadrants, { type: addContext.quadrantType, activities: [newActivity] }] };
+            }));
+            setCreateActivityType(null);
+            setAddContext(null);
+          }}
+        />
+      )}
+
+      {/* Activity settings modal — for EDITING existing activities */}
+      {settingsActivity && (
+        <ActivitySettingsModal
+          activityType={settingsActivity.type as EditorActivityType}
+          mode="edit"
+          activityName={settingsActivity.title}
+          initialValues={{ title: settingsActivity.title }}
+          onClose={() => setSettingsActivity(null)}
+          onSubmit={(values) => {
+            if (values.title) {
+              setUnits(prev => prev.map(u => ({
+                ...u,
+                quadrants: u.quadrants.map(q => ({
+                  ...q,
+                  activities: q.activities.map(a => a.id === settingsActivity.id ? { ...a, title: values.title } : a),
+                })),
+              })));
+            }
+            setSettingsActivity(null);
+          }}
+          onDelete={() => {
+            handleDeleteActivity(settingsActivity.id);
+            setSettingsActivity(null);
+          }}
         />
       )}
     </div>

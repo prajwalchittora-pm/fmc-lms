@@ -609,40 +609,46 @@ export default function ExamsView() {
 
       {/* ═══ CREATE EXAM MODAL ═══ */}
       {showCreateModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.4)' }} onClick={() => setShowCreateModal(false)}>
-          <div style={{ background: '#fff', borderRadius: 'var(--radius-md)', width: 480, maxHeight: '80vh', overflow: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }} onClick={e => e.stopPropagation()}>
-            {/* Modal header */}
-            <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border-subtle)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ fontSize: 16, fontWeight: 800, fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Create Exam</div>
-              <button onClick={() => setShowCreateModal(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-tertiary)', padding: 4, display: 'flex' }}><X size={18} /></button>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 100, display: 'grid', placeItems: 'center', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }} onClick={() => setShowCreateModal(false)}>
+          <div style={{ background: '#fff', borderRadius: 16, width: 480, maxHeight: '80vh', overflow: 'auto', boxShadow: '0 25px 80px rgba(0,0,0,0.25), 0 0 0 1px rgba(0,0,0,0.06)' }} onClick={e => e.stopPropagation()}>
+            {/* Modal header — dark gradient */}
+            <div style={{ background: 'linear-gradient(135deg, #030B22 0%, #06102E 50%, #213594 100%)', borderRadius: '16px 16px 0 0', padding: '24px 24px 20px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(255,255,255,0.1)', display: 'grid', placeItems: 'center', flexShrink: 0 }}>
+                    <Calendar size={20} style={{ color: '#fff' }} />
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>Create Exam</div>
+                </div>
+                <button onClick={() => setShowCreateModal(false)} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', display: 'grid', placeItems: 'center' }}><X size={16} style={{ color: '#fff' }} /></button>
+              </div>
+              {/* Hero input — Course selector in header */}
+              <div>
+                <label style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.5)', display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Course</label>
+                <select value={newExam.courseCode} onChange={e => setNewExam({ ...newExam, courseCode: e.target.value })} style={{ width: '100%', padding: '10px 32px 10px 14px', fontSize: 14, fontWeight: 600, border: '1.5px solid rgba(255,255,255,0.15)', borderRadius: 10, fontFamily: 'var(--font-sans)', outline: 'none', background: 'rgba(255,255,255,0.08)', color: '#fff', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 12px center' }}>
+                  <option value="MBA-101" style={{ color: '#1a1a1a' }}>MBA-101: Managerial Economics</option>
+                  <option value="MBA-102" style={{ color: '#1a1a1a' }}>MBA-102: Managerial Communication</option>
+                  <option value="MBA-103" style={{ color: '#1a1a1a' }}>MBA-103: Financial Accounting</option>
+                  <option value="MBA-104" style={{ color: '#1a1a1a' }}>MBA-104: Organizational Behaviour</option>
+                  <option value="MBA-105" style={{ color: '#1a1a1a' }}>MBA-105: Business Statistics</option>
+                  <option value="MBA-106" style={{ color: '#1a1a1a' }}>MBA-106: Business Law & Ethics</option>
+                </select>
+              </div>
             </div>
 
             {/* Modal body */}
             <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-              {/* Course */}
-              <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Course</label>
-                <select value={newExam.courseCode} onChange={e => setNewExam({ ...newExam, courseCode: e.target.value })} style={{ width: '100%', padding: '8px 28px 8px 12px', fontSize: 13, fontWeight: 500, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none', background: '#fff', appearance: 'none', WebkitAppearance: 'none', backgroundImage: `url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 10px center' }}>
-                  <option value="MBA-101">MBA-101: Managerial Economics</option>
-                  <option value="MBA-102">MBA-102: Managerial Communication</option>
-                  <option value="MBA-103">MBA-103: Financial Accounting</option>
-                  <option value="MBA-104">MBA-104: Organizational Behaviour</option>
-                  <option value="MBA-105">MBA-105: Business Statistics</option>
-                  <option value="MBA-106">MBA-106: Business Law & Ethics</option>
-                </select>
-              </div>
-
               {/* Type */}
               <div>
-                <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Exam Type</label>
+                <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Exam Type</label>
                 <div style={{ display: 'flex', gap: 6 }}>
                   {(['midsem', 'endsem', 'supplementary', 'improvement'] as ExamType[]).map(type => (
                     <button key={type} onClick={() => setNewExam({ ...newExam, type, maxMarks: type === 'endsem' || type === 'supplementary' || type === 'improvement' ? 75 : 25 })} style={{
                       padding: '6px 12px', fontSize: 11, fontWeight: newExam.type === type ? 700 : 500,
                       color: newExam.type === type ? '#fff' : 'var(--text-secondary)',
-                      background: newExam.type === type ? 'var(--blue-700)' : '#fff',
-                      border: newExam.type === type ? '1px solid var(--blue-700)' : '1px solid var(--border-subtle)',
-                      borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)',
+                      background: newExam.type === type ? '#072FB5' : 'var(--bg-section)',
+                      border: newExam.type === type ? '1.5px solid #072FB5' : '1.5px solid transparent',
+                      borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)',
                     }}>{EXAM_TYPE_LABELS[type].label}</button>
                   ))}
                 </div>
@@ -651,63 +657,63 @@ export default function ExamsView() {
               {/* Date + Time */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Date</label>
-                  <input type="date" value={newExam.date} onChange={e => setNewExam({ ...newExam, date: e.target.value })} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none' }} />
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Date</label>
+                  <input type="date" value={newExam.date} onChange={e => setNewExam({ ...newExam, date: e.target.value })} onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }} onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1.5px solid transparent', borderRadius: 8, fontFamily: 'var(--font-sans)', outline: 'none', background: 'var(--bg-section)', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s' }} />
                 </div>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Start Time</label>
-                  <input type="time" value={newExam.startTime} onChange={e => setNewExam({ ...newExam, startTime: e.target.value })} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none' }} />
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Start Time</label>
+                  <input type="time" value={newExam.startTime} onChange={e => setNewExam({ ...newExam, startTime: e.target.value })} onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }} onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1.5px solid transparent', borderRadius: 8, fontFamily: 'var(--font-sans)', outline: 'none', background: 'var(--bg-section)', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s' }} />
                 </div>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>End Time</label>
-                  <input type="time" value={newExam.endTime} onChange={e => setNewExam({ ...newExam, endTime: e.target.value })} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none' }} />
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>End Time</label>
+                  <input type="time" value={newExam.endTime} onChange={e => setNewExam({ ...newExam, endTime: e.target.value })} onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }} onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }} style={{ width: '100%', padding: '8px 10px', fontSize: 12, border: '1.5px solid transparent', borderRadius: 8, fontFamily: 'var(--font-sans)', outline: 'none', background: 'var(--bg-section)', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s' }} />
                 </div>
               </div>
 
               {/* Mode + Max Marks */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Mode</label>
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Mode</label>
                   <div style={{ display: 'flex', gap: 6 }}>
                     {(['online', 'in-person'] as const).map(mode => (
                       <button key={mode} onClick={() => setNewExam({ ...newExam, mode })} style={{
                         flex: 1, padding: '7px', fontSize: 12, fontWeight: newExam.mode === mode ? 600 : 500,
-                        color: newExam.mode === mode ? 'var(--blue-700)' : 'var(--text-secondary)',
-                        background: newExam.mode === mode ? 'rgba(7,47,181,0.04)' : '#fff',
-                        border: newExam.mode === mode ? '1px solid rgba(7,47,181,0.2)' : '1px solid var(--border-subtle)',
-                        borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)',
+                        color: newExam.mode === mode ? '#072FB5' : 'var(--text-secondary)',
+                        background: newExam.mode === mode ? 'rgba(7,47,181,0.04)' : 'var(--bg-section)',
+                        border: newExam.mode === mode ? '1.5px solid rgba(7,47,181,0.2)' : '1.5px solid transparent',
+                        borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)',
                       }}>{mode === 'online' ? 'Online' : 'In-person'}</button>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Max Marks</label>
-                  <input type="number" value={newExam.maxMarks} onChange={e => setNewExam({ ...newExam, maxMarks: +e.target.value })} style={{ width: '100%', padding: '8px 12px', fontSize: 13, fontFamily: 'var(--font-mono)', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', outline: 'none' }} />
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Max Marks</label>
+                  <input type="number" value={newExam.maxMarks} onChange={e => setNewExam({ ...newExam, maxMarks: +e.target.value })} onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }} onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }} style={{ width: '100%', padding: '8px 12px', fontSize: 13, fontFamily: 'var(--font-mono)', border: '1.5px solid transparent', borderRadius: 8, outline: 'none', background: 'var(--bg-section)', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s' }} />
                 </div>
               </div>
 
               {/* Venue (conditional) */}
               {newExam.mode === 'in-person' && (
                 <div>
-                  <label style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 4 }}>Venue</label>
-                  <input type="text" value={newExam.venue} onChange={e => setNewExam({ ...newExam, venue: e.target.value })} placeholder="e.g., Hall A, Block 3" style={{ width: '100%', padding: '8px 12px', fontSize: 13, border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', fontFamily: 'var(--font-sans)', outline: 'none' }} />
+                  <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: 6 }}>Venue</label>
+                  <input type="text" value={newExam.venue} onChange={e => setNewExam({ ...newExam, venue: e.target.value })} placeholder="e.g., Hall A, Block 3" onFocus={e => { e.currentTarget.style.borderColor = '#072FB5'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(7,47,181,0.12)'; e.currentTarget.style.background = '#fff'; }} onBlur={e => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = 'var(--bg-section)'; }} style={{ width: '100%', padding: '8px 12px', fontSize: 13, border: '1.5px solid transparent', borderRadius: 8, fontFamily: 'var(--font-sans)', outline: 'none', background: 'var(--bg-section)', transition: 'border-color 0.15s, box-shadow 0.15s, background 0.15s' }} />
                 </div>
               )}
 
               {/* Proctoring note */}
-              <div style={{ background: 'var(--bg-section)', borderRadius: 'var(--radius-sm)', padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
+              <div style={{ background: 'var(--bg-section)', borderRadius: 8, padding: '12px 14px', display: 'flex', alignItems: 'center', gap: 10 }}>
                 <ShieldCheck size={16} style={{ color: 'var(--text-tertiary)', flexShrink: 0 }} />
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-secondary)' }}>Proctoring Settings</div>
-                  <div style={{ fontSize: 11, color: 'var(--text-tertiary)', marginTop: 2 }}>Configure proctoring in the <button onClick={() => window.open('#proctoring-portal', '_blank')} style={{ color: 'var(--blue-700)', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, fontFamily: 'var(--font-sans)', padding: 0, textDecoration: 'underline' }}>Proctoring Portal</button> after creating the exam.</div>
+                  <div style={{ fontSize: 11, color: 'var(--text-tertiary)', marginTop: 2 }}>Configure proctoring in the <button onClick={() => window.open('#proctoring-portal', '_blank')} style={{ color: '#072FB5', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, fontFamily: 'var(--font-sans)', padding: 0, textDecoration: 'underline' }}>Proctoring Portal</button> after creating the exam.</div>
                 </div>
               </div>
             </div>
 
             {/* Modal footer */}
-            <div style={{ padding: '16px 24px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
-              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
-              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: '#fff', background: 'var(--blue-700)', border: '1px solid var(--blue-700)', borderRadius: 'var(--radius-sm)', cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Create Exam</button>
+            <div style={{ padding: '16px 24px', background: '#FAFAFA', borderRadius: '0 0 16px 16px', borderTop: '1px solid var(--border-subtle)', display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', background: '#fff', border: '1px solid var(--border-subtle)', borderRadius: 8, cursor: 'pointer', fontFamily: 'var(--font-sans)' }}>Cancel</button>
+              <button onClick={() => setShowCreateModal(false)} style={{ padding: '8px 20px', fontSize: 13, fontWeight: 600, color: '#fff', background: newExam.courseCode ? '#072FB5' : 'var(--neutral-200)', border: 'none', borderRadius: 8, cursor: newExam.courseCode ? 'pointer' : 'default', fontFamily: 'var(--font-sans)', boxShadow: newExam.courseCode ? '0 1px 3px rgba(7,47,181,0.3)' : 'none', transition: 'background 0.15s, box-shadow 0.15s' }}>Create Exam</button>
             </div>
           </div>
         </div>

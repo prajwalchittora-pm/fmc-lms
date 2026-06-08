@@ -157,12 +157,12 @@ function GradeBadge({ grade, total }: { grade: string; total: number }) {
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 
-type Tab = 'grades' | 'config' | 'analytics';
+type Tab = 'config';
 
 export default function GradebookView() {
   const [selectedProgramme, setSelectedProgramme] = useState('mba-26');
   const [selectedSemester, setSelectedSemester] = useState(1);
-  const [tab, setTab] = useState<Tab>('grades');
+  const [tab, setTab] = useState<Tab>('config');
   const [gradeScale, setGradeScale] = useState<GradeScale[]>(DEFAULT_SCALE);
   const [editingScale, setEditingScale] = useState(false);
   const [editScale, setEditScale] = useState<GradeScale[]>(DEFAULT_SCALE);
@@ -217,9 +217,7 @@ export default function GradebookView() {
   const tdStyle: React.CSSProperties = { fontSize: 12, fontWeight: 500, color: 'var(--text-primary)', padding: '10px 12px', borderBottom: '1px solid rgba(0,0,0,0.03)' };
 
   const TABS: { key: Tab; label: string }[] = [
-    { key: 'grades', label: 'Student Grades' },
     { key: 'config', label: 'Configuration' },
-    { key: 'analytics', label: 'Analytics' },
   ];
 
   return (
@@ -287,8 +285,8 @@ export default function GradebookView() {
         })}
       </div>
 
-      {/* ═══ STUDENT GRADES TAB ═══ */}
-      {tab === 'grades' && (
+      {/* ═══ STUDENT GRADES TAB (removed) ═══ */}
+      {false && (
         <div>
           {/* Toolbar */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 12 }}>
@@ -577,8 +575,8 @@ export default function GradebookView() {
         </div>
       )}
 
-      {/* ═══ ANALYTICS TAB ═══ */}
-      {tab === 'analytics' && (
+      {/* ═══ ANALYTICS TAB (removed) ═══ */}
+      {false && (
         <div>
           {/* Summary Cards */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16, marginBottom: 24 }}>
