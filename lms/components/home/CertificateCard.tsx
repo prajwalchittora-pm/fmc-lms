@@ -1,13 +1,16 @@
 'use client';
-import { CERTIFICATE } from '@/lib/mockData';
+import { useState } from 'react';
+import { CERTIFICATE, LEARNER } from '@/lib/mockData';
 import { Award, Lock } from 'lucide-react';
 import { usePrototype } from '@/context/PrototypeContext';
+import CertificateModal from './CertificateModal';
 
 export default function CertificateCard() {
   const { completedCourses, totalCourses, aggregateProgress } = CERTIFICATE;
   const remaining = totalCourses - completedCourses;
   const { scenario } = usePrototype();
   const isUnlocked = completedCourses === totalCourses || scenario === 'completed';
+  const [showCert, setShowCert] = useState(false);
 
   return (
     <div className="enter enter-3" style={{
@@ -111,7 +114,7 @@ export default function CertificateCard() {
             </div>
           )}
           <button
-            onClick={() => {}}
+            onClick={() => { if (isUnlocked) setShowCert(true); }}
             style={{
               width: '100%',
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 7,
@@ -134,6 +137,14 @@ export default function CertificateCard() {
           </button>
         </div>
       </div>
+
+      <CertificateModal
+        isOpen={showCert}
+        onClose={() => setShowCert(false)}
+        learnerName={LEARNER.fullName}
+        programName={CERTIFICATE.program}
+        institution={CERTIFICATE.institution}
+      />
     </div>
   );
 }
